@@ -4,828 +4,738 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>oSein — Discord Moderator & Community Manager</title>
-  <meta name="description" content="oSein — Professional Discord Moderator & Community Manager. Specialized in Discord server moderation and community management." />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet" />
+  <meta name="description" content="oSein — Discord Moderator & Community Manager. Especialista em moderação e gestão de comunidades." />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-/* ═══════════════════════════════════════════════════════════
-   RESET & BASE
-═══════════════════════════════════════════════════════════ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; }
+    /* ─── RESET & BASE ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-primary:   #0a0a0a;
+      --bg-secondary: #111111;
+      --bg-card:      #141414;
+      --border:       #2a2a2a;
+      --border-light: #333333;
+      --text-primary: #e5e5e5;
+      --text-muted:   #8a8a8a;
+      --text-dim:     #555555;
+      --glow:         rgba(180,180,180,0.08);
+      --glow-strong:  rgba(200,200,200,0.14);
+      --transition:   0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+    [data-theme="light"] {
+      --bg-primary:   #f0f0f0;
+      --bg-secondary: #e8e8e8;
+      --bg-card:      #fafafa;
+      --border:       #d0d0d0;
+      --border-light: #c0c0c0;
+      --text-primary: #1a1a1a;
+      --text-muted:   #555555;
+      --text-dim:     #999999;
+      --glow:         rgba(0,0,0,0.06);
+      --glow-strong:  rgba(0,0,0,0.12);
+    }
+    html { scroll-behavior: smooth; cursor: none; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background var(--transition), color var(--transition);
+      cursor: none;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
 
-/* ═══════════════════════════════════════════════════════════
-   THEME VARIABLES
-═══════════════════════════════════════════════════════════ */
-:root {
-  --bg:          #0a0a0a;
-  --bg2:         #0f0f0f;
-  --bg3:         #161616;
-  --bg4:         #1f1f1f;
-  --bg5:         #2a2a2a;
-  --border:      rgba(255,255,255,0.065);
-  --border-h:    rgba(255,255,255,0.13);
-  --text:        #e8e8e8;
-  --text-sub:    #a0a0a0;
-  --text-muted:  #606060;
-  --glow-sm:     0 0 12px rgba(160,160,160,0.12);
-  --glow-md:     0 0 28px rgba(160,160,160,0.18);
-  --glow-lg:     0 0 50px rgba(160,160,160,0.22);
-  --shadow:      0 8px 48px rgba(0,0,0,0.7);
-  --shadow-card: 0 4px 24px rgba(0,0,0,0.55);
-  --card-bg:     #111111;
-  --nav-bg:      rgba(8,8,8,0.78);
-  --btn-primary-bg:   #e8e8e8;
-  --btn-primary-text: #0a0a0a;
-  --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-[data-theme="light"] {
-  --bg:          #f2f2f2;
-  --bg2:         #ebebeb;
-  --bg3:         #e2e2e2;
-  --bg4:         #d5d5d5;
-  --bg5:         #c8c8c8;
-  --border:      rgba(0,0,0,0.07);
-  --border-h:    rgba(0,0,0,0.14);
-  --text:        #111111;
-  --text-sub:    #444444;
-  --text-muted:  #888888;
-  --glow-sm:     0 0 12px rgba(0,0,0,0.06);
-  --glow-md:     0 0 24px rgba(0,0,0,0.10);
-  --glow-lg:     0 0 40px rgba(0,0,0,0.12);
-  --shadow:      0 8px 48px rgba(0,0,0,0.10);
-  --shadow-card: 0 4px 24px rgba(0,0,0,0.08);
-  --card-bg:     #e8e8e8;
-  --nav-bg:      rgba(242,242,242,0.80);
-  --btn-primary-bg:   #111111;
-  --btn-primary-text: #f2f2f2;
-}
+    /* ─── CUSTOM CURSOR ────────────────────────────────────── */
+    #cursor {
+      position: fixed;
+      top: 0; left: 0;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: rgba(170,170,170,0.15);
+      border: 1.5px solid rgba(170,170,170,0.5);
+      box-shadow: 0 0 14px rgba(170,170,170,0.35), 0 0 30px rgba(170,170,170,0.12);
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%,-50%);
+      transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+      will-change: transform;
+    }
+    #cursor.hover {
+      width: 34px; height: 34px;
+      background: rgba(170,170,170,0.2);
+      box-shadow: 0 0 22px rgba(170,170,170,0.5), 0 0 50px rgba(170,170,170,0.18);
+    }
+    #cursor-dot {
+      position: fixed;
+      top: 0; left: 0;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #aaaaaa;
+      pointer-events: none;
+      z-index: 100000;
+      transform: translate(-50%,-50%);
+      will-change: transform;
+    }
 
-body {
-  font-family: 'Poppins', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  cursor: none;
-  overflow-x: hidden;
-  transition: background var(--transition), color var(--transition);
-  -webkit-font-smoothing: antialiased;
-}
+    /* ─── BACKGROUND LAYERS ────────────────────────────────── */
+    .bg-layer {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    }
+    .bg-radial {
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 10%, rgba(80,80,80,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(60,60,60,0.05) 0%, transparent 60%);
+    }
+    .bg-noise {
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
 
-/* ═══════════════════════════════════════════════════════════
-   CURSOR
-═══════════════════════════════════════════════════════════ */
-#cursor {
-  position: fixed;
-  width: 10px; height: 10px;
-  background: #d0d0d0;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99999;
-  transform: translate(-50%,-50%);
-  transition: width .15s ease, height .15s ease, opacity .15s ease;
-  box-shadow: 0 0 10px 3px rgba(180,180,180,0.55);
-  will-change: left, top;
-}
-#cursor-ring {
-  position: fixed;
-  width: 34px; height: 34px;
-  border: 1.5px solid rgba(200,200,200,0.4);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99998;
-  transform: translate(-50%,-50%);
-  transition: width .3s ease, height .3s ease, border-color .3s ease, opacity .3s ease;
-  will-change: left, top;
-}
-body.cursor-hover #cursor       { width: 18px; height: 18px; background: #fff; box-shadow: 0 0 20px 8px rgba(220,220,220,0.55); }
-body.cursor-hover #cursor-ring  { width: 48px; height: 48px; border-color: rgba(220,220,220,0.65); }
+    /* ─── NAVBAR ───────────────────────────────────────────── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 0 2.5rem;
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(10,10,10,0.75);
+      backdrop-filter: blur(18px) saturate(1.2);
+      -webkit-backdrop-filter: blur(18px) saturate(1.2);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: background var(--transition), border-color var(--transition);
+    }
+    [data-theme="light"] #navbar {
+      background: rgba(240,240,240,0.80);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .nav-brand {
+      font-size: 1.25rem; font-weight: 700;
+      background: linear-gradient(135deg, #e5e5e5 0%, #a3a3a3 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+    }
+    .nav-links {
+      display: flex; gap: 2.2rem; list-style: none; align-items: center;
+    }
+    .nav-links a {
+      font-size: 0.875rem; font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.01em;
+      position: relative;
+      transition: color var(--transition);
+      padding-bottom: 2px;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -3px; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, #aaaaaa, transparent);
+      transform: scaleX(0);
+      transition: transform var(--transition);
+      transform-origin: center;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-controls { display: flex; gap: 0.75rem; align-items: center; }
+    .nav-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.78rem; font-weight: 500;
+      cursor: none;
+      transition: all var(--transition);
+      letter-spacing: 0.04em;
+    }
+    .nav-btn:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: var(--border-light);
+      color: var(--text-primary);
+      box-shadow: 0 0 12px rgba(160,160,160,0.1);
+    }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: none; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--text-muted); border-radius: 2px;
+      transition: all var(--transition);
+    }
 
-/* ═══════════════════════════════════════════════════════════
-   BACKGROUND GRID + BLOBS
-═══════════════════════════════════════════════════════════ */
-#bg-grid {
-  position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-  background-size: 60px 60px;
-  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
-  transition: opacity var(--transition);
-}
-[data-theme="light"] #bg-grid {
-  background-image:
-    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
-}
-.bg-blob {
-  position: fixed; border-radius: 50%;
-  pointer-events: none; z-index: 0;
-  filter: blur(110px);
-  animation: blob-drift 14s ease-in-out infinite alternate;
-}
-.blob1 { width: 560px; height: 560px; background: radial-gradient(circle, #333 0%, transparent 70%); top: -120px; right: -80px; opacity: 0.06; animation-delay: 0s; }
-.blob2 { width: 420px; height: 420px; background: radial-gradient(circle, #222 0%, transparent 70%); bottom: 5%; left: -60px; opacity: 0.07; animation-delay: -7s; }
-.blob3 { width: 300px; height: 300px; background: radial-gradient(circle, #444 0%, transparent 70%); bottom: 40%; right: 10%; opacity: 0.04; animation-delay: -3s; }
-@keyframes blob-drift {
-  from { transform: translate(0,0) scale(1); }
-  to   { transform: translate(30px, 20px) scale(1.06); }
-}
-[data-theme="light"] .blob1 { opacity: 0.03; }
-[data-theme="light"] .blob2 { opacity: 0.03; }
-[data-theme="light"] .blob3 { opacity: 0.02; }
+    /* ─── SECTIONS BASE ────────────────────────────────────── */
+    section { position: relative; z-index: 1; }
+    .section-inner {
+      max-width: 1100px; margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-dim);
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.85rem; border-radius: 50px;
+      margin-bottom: 1.2rem;
+      background: rgba(255,255,255,0.02);
+    }
+    .section-tag::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      background: #888888; box-shadow: 0 0 6px #888888;
+    }
+    h2.section-title {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 700; letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #e5e5e5 0%, #a3a3a3 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.6rem;
+    }
+    .section-desc {
+      font-size: 0.95rem; color: var(--text-muted); line-height: 1.7;
+      max-width: 560px;
+    }
+    .section-header { margin-bottom: 3rem; }
 
-/* ═══════════════════════════════════════════════════════════
-   NAVIGATION
-═══════════════════════════════════════════════════════════ */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 9000;
-  height: 62px;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 clamp(1.2rem, 5%, 3.5rem);
-  background: var(--nav-bg);
-  backdrop-filter: blur(22px) saturate(160%);
-  -webkit-backdrop-filter: blur(22px) saturate(160%);
-  border-bottom: 1px solid var(--border);
-  transition: background var(--transition), border-color var(--transition);
-}
-.nav-logo {
-  font-size: 1.15rem; font-weight: 700; letter-spacing: 0.02em;
-  color: var(--text); text-decoration: none;
-  display: flex; align-items: center; gap: 0;
-}
-.nav-logo .o { color: var(--text-sub); font-weight: 300; }
-.nav-links {
-  display: flex; gap: 2.4rem; list-style: none;
-  position: absolute; left: 50%; transform: translateX(-50%);
-}
-.nav-links a {
-  font-size: 0.82rem; font-weight: 500;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--text-sub); text-decoration: none;
-  position: relative; padding-bottom: 2px;
-  transition: color var(--transition);
-}
-.nav-links a::after {
-  content: ''; position: absolute; bottom: -1px; left: 0;
-  width: 0; height: 1px;
-  background: var(--text);
-  transition: width var(--transition);
-}
-.nav-links a:hover { color: var(--text); }
-.nav-links a:hover::after { width: 100%; }
-.nav-right { display: flex; align-items: center; gap: 0.5rem; }
-.ctrl-btn {
-  background: var(--bg4); border: 1px solid var(--border);
-  color: var(--text-sub); border-radius: 8px;
-  padding: 5px 13px; font-size: 0.72rem; font-family: 'Poppins', sans-serif;
-  font-weight: 600; cursor: none; letter-spacing: 0.08em; text-transform: uppercase;
-  transition: background var(--transition), color var(--transition), border-color var(--transition), box-shadow var(--transition);
-  line-height: 1;
-}
-.ctrl-btn:hover { background: var(--bg5); color: var(--text); border-color: var(--border-h); box-shadow: var(--glow-sm); }
+    /* ─── FADE IN SCROLL ───────────────────────────────────── */
+    .fade-in {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .fade-delay-1 { transition-delay: 0.1s; }
+    .fade-delay-2 { transition-delay: 0.2s; }
+    .fade-delay-3 { transition-delay: 0.3s; }
+    .fade-delay-4 { transition-delay: 0.4s; }
 
-/* Mobile hamburger */
-.nav-hamburger {
-  display: none; flex-direction: column; gap: 5px;
-  background: none; border: none; cursor: none; padding: 4px;
-}
-.nav-hamburger span {
-  display: block; width: 22px; height: 2px;
-  background: var(--text-sub); border-radius: 2px;
-  transition: all var(--transition);
-}
-.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.nav-hamburger.open span:nth-child(2) { opacity: 0; }
-.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    /* ─── HERO ─────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 2rem 80px;
+    }
+    .hero-inner { max-width: 680px; margin: 0 auto; }
+    .avatar-wrap {
+      position: relative; display: inline-block;
+      margin-bottom: 2.5rem;
+    }
+    .avatar-ring {
+      position: absolute; inset: -14px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(170,170,170,0.2);
+      box-shadow: 0 0 20px rgba(170,170,170,0.08), inset 0 0 20px rgba(170,170,170,0.04);
+      animation: ring-pulse 3s ease-in-out infinite;
+    }
+    @keyframes ring-pulse {
+      0%,100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+    .avatar-img {
+      width: 150px; height: 150px; border-radius: 50%;
+      object-fit: cover; position: relative; z-index: 2;
+      box-shadow: 0 0 30px rgba(150,150,150,0.15), 0 0 80px rgba(120,120,120,0.06);
+    }
+    .orbit-dot {
+      position: absolute; top: 50%; left: 50%; width: 7px; height: 7px;
+      border-radius: 50%; background: rgba(170,170,170,0.6);
+      box-shadow: 0 0 8px rgba(170,170,170,0.8);
+      transform-origin: 0 0;
+      animation: orbit 5s linear infinite;
+      z-index: 3;
+    }
+    @keyframes orbit {
+      0%   { transform: rotate(0deg)   translate(86px) rotate(0deg); }
+      100% { transform: rotate(360deg) translate(86px) rotate(-360deg); }
+    }
+    .hero-name {
+      font-size: clamp(2.6rem, 6vw, 4rem);
+      font-weight: 700; letter-spacing: -0.04em;
+      background: linear-gradient(135deg, #e5e5e5 0%, #a3a3a3 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1; margin-bottom: 0.5rem;
+    }
+    .hero-role {
+      font-size: 0.9rem; font-weight: 500;
+      color: var(--text-dim); letter-spacing: 0.15em;
+      text-transform: uppercase; margin-bottom: 1.2rem;
+    }
+    .hero-desc {
+      font-size: 1rem; color: var(--text-muted);
+      line-height: 1.75; margin-bottom: 2.2rem;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      padding: 0.75rem 2rem; border-radius: 10px;
+      background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+      border: 1px solid var(--border-light);
+      color: var(--text-primary); font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem; font-weight: 500;
+      cursor: none; transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+      letter-spacing: 0.01em;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5), 0 0 20px rgba(150,150,150,0.12), inset 0 1px 0 rgba(255,255,255,0.1);
+      border-color: #444;
+      background: linear-gradient(135deg, #333333 0%, #222222 100%);
+    }
+    [data-theme="light"] .btn-primary {
+      background: linear-gradient(135deg, #e0e0e0 0%, #cacaca 100%);
+      border-color: #b8b8b8; color: #1a1a1a;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+    [data-theme="light"] .btn-primary:hover {
+      background: linear-gradient(135deg, #d0d0d0 0%, #b8b8b8 100%);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2), 0 0 20px rgba(100,100,100,0.15);
+    }
 
-.mobile-menu {
-  display: none;
-  position: fixed; top: 62px; left: 0; right: 0;
-  background: var(--nav-bg);
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
-  border-bottom: 1px solid var(--border);
-  padding: 1.5rem clamp(1.2rem, 5%, 3.5rem);
-  z-index: 8999;
-  flex-direction: column; gap: 1.4rem;
-}
-.mobile-menu.open { display: flex; }
-.mobile-menu a {
-  font-size: 0.9rem; font-weight: 500; letter-spacing: 0.06em;
-  color: var(--text-sub); text-decoration: none;
-  text-transform: uppercase;
-  transition: color var(--transition);
-}
-.mobile-menu a:hover { color: var(--text); }
+    /* ─── SERVICES ─────────────────────────────────────────── */
+    #services { padding: 100px 0; }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.35s ease;
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at top left, rgba(150,150,150,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .service-card:hover {
+      transform: translateY(-5px) scale(1.015);
+      border-color: var(--border-light);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 24px rgba(150,150,150,0.07);
+    }
+    .service-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: linear-gradient(135deg, #2a2a2a, #1c1c1c);
+      border: 1px solid var(--border-light);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.2rem;
+      font-size: 1.3rem;
+    }
+    .service-card h3 {
+      font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+    .service-card p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.65; }
 
-@media (max-width: 700px) {
-  .nav-links    { display: none; }
-  .nav-hamburger { display: flex; }
-}
+    /* ─── COMMUNITIES ──────────────────────────────────────── */
+    #communities { padding: 100px 0; }
+    .communities-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .comm-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.6rem;
+      display: flex; gap: 1.2rem; align-items: flex-start;
+      transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+      position: relative; overflow: hidden;
+      transform-style: preserve-3d;
+    }
+    .comm-card::after {
+      content: ''; position: absolute; inset: 0; border-radius: 16px;
+      background: radial-gradient(ellipse at 30% 30%, rgba(160,160,160,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .comm-card:hover {
+      transform: translateY(-6px) scale(1.02) perspective(600px) rotateX(1deg);
+      border-color: #3a3a3a;
+      box-shadow: 0 16px 50px rgba(0,0,0,0.5), 0 0 30px rgba(150,150,150,0.08);
+    }
+    .comm-icon {
+      width: 56px; height: 56px; border-radius: 50%;
+      object-fit: cover; flex-shrink: 0;
+      border: 1.5px solid var(--border-light);
+      box-shadow: 0 0 12px rgba(150,150,150,0.1);
+    }
+    .comm-info { flex: 1; min-width: 0; }
+    .comm-info h3 {
+      font-size: 0.95rem; font-weight: 600; margin-bottom: 0.2rem;
+      color: var(--text-primary);
+    }
+    .comm-role {
+      display: inline-block;
+      font-size: 0.72rem; font-weight: 500;
+      color: var(--text-dim); letter-spacing: 0.06em;
+      border: 1px solid var(--border);
+      padding: 0.15rem 0.55rem; border-radius: 50px;
+      margin-bottom: 0.65rem;
+      background: rgba(255,255,255,0.02);
+    }
+    .comm-desc {
+      font-size: 0.82rem; color: var(--text-muted); line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .btn-comm {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.78rem; font-weight: 500;
+      color: var(--text-muted);
+      background: linear-gradient(135deg, rgba(40,40,40,0.8) 0%, rgba(28,28,28,0.8) 100%);
+      border: 1px solid var(--border);
+      padding: 0.45rem 1rem; border-radius: 8px; cursor: none;
+      transition: all 0.3s ease;
+      letter-spacing: 0.02em;
+    }
+    .btn-comm:hover {
+      color: var(--text-primary);
+      border-color: #444;
+      box-shadow: 0 0 14px rgba(150,150,150,0.1);
+      transform: translateY(-1px);
+      background: linear-gradient(135deg, rgba(55,55,55,0.9) 0%, rgba(40,40,40,0.9) 100%);
+    }
+    [data-theme="light"] .btn-comm {
+      background: linear-gradient(135deg, #e8e8e8 0%, #dcdcdc 100%);
+      border-color: #c0c0c0; color: #555;
+    }
+    [data-theme="light"] .btn-comm:hover { color: #1a1a1a; border-color: #aaa; }
 
-/* ═══════════════════════════════════════════════════════════
-   FADE-IN ON SCROLL
-═══════════════════════════════════════════════════════════ */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.75s cubic-bezier(0.4,0,0.2,1), transform 0.75s cubic-bezier(0.4,0,0.2,1);
-}
-.reveal.in-view { opacity: 1; transform: translateY(0); }
+    /* ─── SKILLS ───────────────────────────────────────────── */
+    #skills { padding: 100px 0; }
+    .skills-wrap { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .skill-tag {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 0.5rem 1rem; border-radius: 8px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      font-size: 0.82rem; font-weight: 500; color: var(--text-muted);
+      transition: all var(--transition);
+    }
+    .skill-tag:hover {
+      border-color: var(--border-light); color: var(--text-primary);
+      box-shadow: 0 0 14px rgba(150,150,150,0.1);
+      transform: translateY(-2px);
+    }
+    .skill-dot { width: 6px; height: 6px; border-radius: 50%; background: #666; }
 
-/* ═══════════════════════════════════════════════════════════
-   SECTION LAYOUT
-═══════════════════════════════════════════════════════════ */
-section { position: relative; z-index: 1; }
-.section-inner {
-  max-width: 1000px; margin: 0 auto;
-  padding: clamp(80px, 10vw, 120px) clamp(1.2rem, 5%, 3.5rem) clamp(60px, 8vw, 100px);
-}
-.section-eyebrow {
-  display: inline-block;
-  font-size: 0.68rem; font-weight: 600;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 0.8rem;
-}
-.section-title {
-  font-size: clamp(1.6rem, 3.2vw, 2.2rem);
-  font-weight: 700; color: var(--text);
-  letter-spacing: -0.02em; line-height: 1.15;
-  margin-bottom: 0.9rem;
-}
-.section-desc {
-  font-size: 0.9rem; color: var(--text-sub);
-  max-width: 500px; line-height: 1.9;
-}
-.divider {
-  width: 36px; height: 1.5px;
-  background: linear-gradient(90deg, var(--text-muted), transparent);
-  border-radius: 2px; margin: 1rem 0 2.2rem;
-}
+    /* ─── CONTACT ──────────────────────────────────────────── */
+    #contact { padding: 100px 0; }
+    .contact-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3.5rem 2.5rem;
+      text-align: center; max-width: 600px; margin: 0 auto;
+      position: relative; overflow: hidden;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.3), 0 0 60px rgba(100,100,100,0.04);
+    }
+    .contact-card::before {
+      content: ''; position: absolute;
+      top: -60px; left: 50%; transform: translateX(-50%);
+      width: 300px; height: 300px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(150,150,150,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .contact-card h3 {
+      font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;
+      background: linear-gradient(135deg, #e5e5e5 0%, #a3a3a3 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+    }
+    .contact-card p {
+      font-size: 0.95rem; color: var(--text-muted); line-height: 1.75;
+      margin-bottom: 2rem; max-width: 420px; margin-left: auto; margin-right: auto;
+    }
+    .btn-discord {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.85rem 2.2rem; border-radius: 12px;
+      background: linear-gradient(135deg, #2e2e2e 0%, #1c1c1c 100%);
+      border: 1px solid #404040;
+      color: var(--text-primary);
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem; font-weight: 600;
+      cursor: none; transition: all 0.3s ease;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.07);
+      letter-spacing: 0.01em; text-decoration: none;
+    }
+    .btn-discord:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.5), 0 0 24px rgba(160,160,160,0.14), inset 0 1px 0 rgba(255,255,255,0.12);
+      border-color: #555; background: linear-gradient(135deg, #3c3c3c 0%, #282828 100%);
+    }
+    [data-theme="light"] .btn-discord {
+      background: linear-gradient(135deg, #d8d8d8 0%, #c4c4c4 100%);
+      border-color: #aaa; color: #1a1a1a;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.8);
+    }
+    [data-theme="light"] .btn-discord:hover {
+      background: linear-gradient(135deg, #c8c8c8 0%, #b0b0b0 100%);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.2), 0 0 24px rgba(80,80,80,0.15);
+    }
+    /* Discord icon SVG inline */
+    .discord-icon {
+      width: 20px; height: 20px; fill: currentColor; flex-shrink: 0;
+    }
 
-/* ═══════════════════════════════════════════════════════════
-   HERO
-═══════════════════════════════════════════════════════════ */
-#hero {
-  min-height: 100vh;
-  display: flex; align-items: center; justify-content: center;
-  padding-top: 62px;
-}
-.hero-inner {
-  display: flex; flex-direction: column; align-items: center;
-  text-align: center;
-  gap: 1.8rem;
-  max-width: 680px;
-  margin: 0 auto;
-  padding: clamp(3rem,8vw,5rem) 1.5rem;
-}
+    /* ─── FOOTER ───────────────────────────────────────────── */
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .footer-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 18px; height: 18px; flex-shrink: 0;
+    }
+    .footer-icon svg { width: 16px; height: 16px; fill: var(--text-dim); }
+    .footer-text {
+      font-size: 0.82rem; color: var(--text-dim);
+      letter-spacing: 0.02em;
+    }
+    .footer-brand {
+      background: linear-gradient(135deg, #e5e5e5 0%, #a3a3a3 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; font-weight: 600;
+    }
 
-/* Avatar stack */
-.avatar-stack {
-  position: relative;
-  width: 152px; height: 152px;
-  margin-bottom: 0.4rem;
-}
-/* Outer pulse ring */
-.avatar-pulse {
-  position: absolute; inset: -16px;
-  border-radius: 50%;
-  border: 1px solid rgba(180,180,180,0.15);
-  animation: pulse-ring 3.5s ease-out infinite;
-}
-.avatar-pulse:nth-child(2) { inset: -8px; border-color: rgba(200,200,200,0.12); animation-delay: -1.2s; }
-@keyframes pulse-ring {
-  0%   { transform: scale(1);   opacity: 0.6; }
-  70%  { transform: scale(1.08); opacity: 0;   }
-  100% { transform: scale(1.08); opacity: 0;   }
-}
-/* Orbit */
-.orbit-wrapper {
-  position: absolute; inset: -26px;
-  border-radius: 50%;
-  animation: orbit-rotate 8s linear infinite;
-}
-.orbit-dot {
-  position: absolute; top: 0; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 7px; height: 7px; border-radius: 50%;
-  background: rgba(210,210,210,0.85);
-  box-shadow: 0 0 10px 4px rgba(180,180,180,0.5), 0 0 20px 8px rgba(140,140,140,0.2);
-}
-@keyframes orbit-rotate {
-  from { transform: rotate(0deg);   }
-  to   { transform: rotate(360deg); }
-}
-/* Static ring */
-.avatar-ring-static {
-  position: absolute; inset: -6px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(200,200,200,0.2);
-  box-shadow: 0 0 30px rgba(160,160,160,0.10), inset 0 0 20px rgba(160,160,160,0.05);
-}
-/* Image */
-.avatar-img {
-  position: relative; z-index: 2;
-  width: 152px; height: 152px; border-radius: 50%;
-  object-fit: cover; object-position: center top;
-  border: 2px solid rgba(210,210,210,0.2);
-  box-shadow: 0 0 50px rgba(160,160,160,0.18), 0 0 100px rgba(120,120,120,0.10), var(--shadow-card);
-  display: block;
-}
+    /* ─── DIVIDER ──────────────────────────────────────────── */
+    .section-divider {
+      width: 60px; height: 1px; margin: 0 auto 3.5rem;
+      background: linear-gradient(90deg, transparent, rgba(170,170,170,0.3), transparent);
+    }
 
-/* Hero text */
-.hero-status {
-  display: inline-flex; align-items: center; gap: 7px;
-  background: var(--bg3); border: 1px solid var(--border);
-  border-radius: 20px; padding: 5px 14px;
-  font-size: 0.72rem; font-weight: 500; color: var(--text-sub);
-  letter-spacing: 0.06em;
-  margin-bottom: -0.4rem;
-}
-.status-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: #7a7a7a;
-  box-shadow: 0 0 6px 2px rgba(150,150,150,0.4);
-  animation: status-blink 2.5s ease-in-out infinite;
-}
-@keyframes status-blink {
-  0%,100% { opacity: 1; }
-  50%      { opacity: 0.4; }
-}
+    /* ─── MOBILE MENU ──────────────────────────────────────── */
+    .mobile-menu {
+      display: none; position: fixed;
+      top: 64px; left: 0; right: 0; z-index: 999;
+      background: rgba(10,10,10,0.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem 1.5rem;
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-menu ul { list-style: none; }
+    .mobile-menu ul li { padding: 0.65rem 0; border-bottom: 1px solid var(--border); }
+    .mobile-menu ul li:last-child { border-bottom: none; }
+    .mobile-menu a { font-size: 0.95rem; color: var(--text-muted); font-weight: 500; }
+    .mobile-menu a:hover { color: var(--text-primary); }
 
-.hero-name {
-  font-size: clamp(2.8rem, 7vw, 4.4rem);
-  font-weight: 800; letter-spacing: -0.035em; line-height: 1;
-  color: #e5e5e5;
-}
-.hero-name .o { font-weight: 800; color: #e5e5e5; }
-
-.hero-role {
-  font-size: 0.82rem; font-weight: 400; letter-spacing: 0.14em;
-  text-transform: uppercase; color: var(--text-muted);
-  margin-top: -0.6rem;
-}
-.hero-desc {
-  font-size: 0.92rem; color: var(--text-sub);
-  line-height: 1.95; max-width: 460px;
-}
-.hero-btns {
-  display: flex; gap: 0.9rem; flex-wrap: wrap; justify-content: center;
-  margin-top: 0.3rem;
-}
-
-/* Buttons */
-.btn-fill {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--btn-primary-bg); color: var(--btn-primary-text);
-  padding: 12px 26px; border-radius: 10px;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.84rem; font-weight: 600; text-decoration: none;
-  letter-spacing: 0.05em;
-  transition: box-shadow var(--transition), transform var(--transition), opacity var(--transition);
-  box-shadow: 0 0 18px rgba(200,200,200,0.08);
-  border: none;
-}
-.btn-fill:hover { box-shadow: 0 0 40px rgba(220,220,220,0.28); transform: translateY(-3px); }
-
-.btn-ghost {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: transparent; color: var(--text-sub);
-  padding: 12px 26px; border-radius: 10px;
-  border: 1px solid var(--border);
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.84rem; font-weight: 500; text-decoration: none;
-  letter-spacing: 0.05em;
-  transition: border-color var(--transition), color var(--transition), box-shadow var(--transition), transform var(--transition);
-}
-.btn-ghost:hover { color: var(--text); border-color: var(--border-h); box-shadow: var(--glow-md); transform: translateY(-3px); }
-
-/* Scroll indicator */
-.scroll-hint {
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  margin-top: 0.5rem; opacity: 0.35;
-  animation: hint-float 2.2s ease-in-out infinite;
-}
-@keyframes hint-float {
-  0%,100% { transform: translateY(0); }
-  50%      { transform: translateY(6px); }
-}
-.scroll-hint span { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
-.scroll-hint svg  { stroke: var(--text-muted); }
-
-/* ═══════════════════════════════════════════════════════════
-   SERVICES
-═══════════════════════════════════════════════════════════ */
-#servicos { background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%); }
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 1rem; margin-top: 2.5rem;
-}
-.svc-card {
-  background: var(--card-bg); border: 1px solid var(--border);
-  border-radius: 14px; padding: 26px 22px;
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-}
-.svc-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.45), var(--glow-md);
-  border-color: var(--border-h);
-}
-.svc-icon {
-  width: 38px; height: 38px; border-radius: 10px;
-  background: var(--bg4); border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem; margin-bottom: 1.1rem;
-}
-.svc-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.45rem; }
-.svc-desc  { font-size: 0.79rem; color: var(--text-sub); line-height: 1.75; }
-
-/* ═══════════════════════════════════════════════════════════
-   COMMUNITIES
-═══════════════════════════════════════════════════════════ */
-#comunidades { background: var(--bg2); }
-.comm-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem; margin-top: 2.5rem;
-}
-@media (max-width: 640px) { .comm-grid { grid-template-columns: 1fr; } }
-
-.comm-card {
-  background: var(--card-bg); border: 1px solid var(--border);
-  border-radius: 14px; padding: 18px;
-  display: flex; flex-direction: column; gap: 12px;
-  will-change: transform;
-  transform-style: preserve-3d;
-  transition: box-shadow var(--transition), border-color var(--transition);
-  cursor: default;
-}
-.comm-header { display: flex; align-items: center; gap: 11px; }
-.comm-icon {
-  width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
-  object-fit: cover; border: 2px solid var(--border);
-  background: var(--bg4);
-}
-.comm-name { font-size: 0.88rem; font-weight: 600; line-height: 1.3; }
-.comm-badge {
-  display: inline-block; margin-top: 3px;
-  font-size: 0.64rem; font-weight: 500; letter-spacing: 0.07em;
-  color: var(--text-muted); background: var(--bg4);
-  border: 1px solid var(--border); border-radius: 20px;
-  padding: 2px 9px;
-}
-.comm-body {
-  background: var(--bg3); border: 1px solid var(--border);
-  border-radius: 9px; padding: 11px 13px;
-  font-size: 0.78rem; color: var(--text-sub); line-height: 1.75;
-  flex: 1;
-}
-.comm-footer { margin-top: auto; }
-.btn-comm {
-  display: flex; align-items: center; justify-content: center; gap: 6px;
-  width: 100%; padding: 9px 16px; border-radius: 8px;
-  background: var(--bg4); color: var(--text);
-  border: 1px solid var(--border);
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.76rem; font-weight: 500; text-decoration: none;
-  letter-spacing: 0.05em;
-  transition: background var(--transition), border-color var(--transition), box-shadow var(--transition), transform var(--transition);
-}
-.btn-comm:hover {
-  background: var(--bg5); border-color: var(--border-h);
-  box-shadow: var(--glow-md); transform: translateY(-1px);
-}
-
-/* ═══════════════════════════════════════════════════════════
-   SKILLS
-═══════════════════════════════════════════════════════════ */
-#habilidades { background: var(--bg); }
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
-  gap: 1rem; margin-top: 2.5rem;
-}
-.skill-card {
-  background: var(--card-bg); border: 1px solid var(--border);
-  border-radius: 12px; padding: 18px 16px;
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-}
-.skill-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.35), var(--glow-sm); border-color: var(--border-h); }
-.skill-label { font-size: 0.82rem; font-weight: 600; margin-bottom: 10px; color: var(--text); }
-.skill-track {
-  height: 3px; background: var(--bg5); border-radius: 3px; overflow: hidden;
-  position: relative;
-}
-.skill-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #555 0%, #c8c8c8 100%);
-  border-radius: 3px;
-  transform: scaleX(0); transform-origin: left;
-  transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.skill-card.in-view .skill-fill { transform: scaleX(1); }
-
-/* ═══════════════════════════════════════════════════════════
-   CONTACT CARD
-═══════════════════════════════════════════════════════════ */
-#contato { background: var(--bg2); }
-.contact-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 6vw, 4rem);
-  text-align: center;
-  max-width: 640px;
-  margin: 2.5rem auto 0;
-  box-shadow: 0 16px 64px rgba(0,0,0,0.5), 0 0 40px rgba(140,140,140,0.07);
-  transition: box-shadow var(--transition), border-color var(--transition);
-}
-.contact-card:hover {
-  box-shadow: 0 24px 80px rgba(0,0,0,0.55), 0 0 50px rgba(160,160,160,0.10);
-  border-color: var(--border-h);
-}
-.contact-icon {
-  width: 56px; height: 56px;
-  background: var(--bg4); border: 1px solid var(--border);
-  border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 1.4rem;
-  color: var(--text-sub);
-  font-size: 1.4rem;
-}
-.contact-heading {
-  font-size: clamp(1.15rem, 2.5vw, 1.5rem);
-  font-weight: 700; color: var(--text);
-  line-height: 1.3; margin-bottom: 0.9rem;
-  letter-spacing: -0.01em;
-}
-.contact-sub {
-  font-size: 0.88rem; color: var(--text-sub);
-  line-height: 1.9; max-width: 420px;
-  margin: 0 auto 2rem;
-}
-.contact-btn { margin: 0 auto; }
-
-/* ═══════════════════════════════════════════════════════════
-   FOOTER
-═══════════════════════════════════════════════════════════ */
-footer {
-  position: relative; z-index: 1;
-  border-top: 1px solid var(--border);
-  padding: 2.2rem clamp(1.2rem, 5%, 3.5rem);
-  display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0.5rem;
-  font-size: 0.78rem; color: var(--text-muted);
-  letter-spacing: 0.04em;
-}
-footer a { color: var(--text-sub); text-decoration: none; transition: color var(--transition); }
-footer a:hover { color: var(--text); }
-
-/* ═══════════════════════════════════════════════════════════
-   SHIMMER UTILITY
-═══════════════════════════════════════════════════════════ */
-.shimmer-border {
-  position: relative;
-}
-.shimmer-border::before {
-  content: '';
-  position: absolute; inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.10) 100%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   RESPONSIVE TWEAKS
-═══════════════════════════════════════════════════════════ */
-@media (max-width: 480px) {
-  .hero-btns { flex-direction: column; align-items: stretch; }
-  .btn-fill, .btn-ghost { justify-content: center; }
-}
+    /* ─── RESPONSIVE ───────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .communities-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      #navbar { padding: 0 1.5rem; }
+      .contact-card { padding: 2.5rem 1.5rem; }
+    }
+    @media (max-width: 480px) {
+      .hero-name { font-size: 2.2rem; }
+      .section-inner { padding: 0 1.25rem; }
+    }
   </style>
 </head>
 <body>
 
-<!-- ─── CURSOR ─────────────────────────────────────────────── -->
+<!-- BG LAYERS -->
+<div class="bg-layer bg-radial"></div>
+<div class="bg-layer bg-noise"></div>
+
+<!-- CUSTOM CURSOR -->
 <div id="cursor"></div>
-<div id="cursor-ring"></div>
+<div id="cursor-dot"></div>
 
-<!-- ─── BACKGROUND ────────────────────────────────────────── -->
-<div id="bg-grid"></div>
-<div class="bg-blob blob1"></div>
-<div class="bg-blob blob2"></div>
-<div class="bg-blob blob3"></div>
-
-<!-- ═══════════════════════════════════════════════════════════
-     NAV
-═══════════════════════════════════════════════════════════ -->
+<!-- NAVBAR -->
 <nav id="navbar">
-  <a href="#hero" class="nav-logo"><span class="o">o</span>Sein</a>
-
-  <ul class="nav-links" role="list">
-    <li><a href="#hero"        data-i18n="nav1">Início</a></li>
-    <li><a href="#servicos"    data-i18n="nav2">Serviços</a></li>
-    <li><a href="#comunidades" data-i18n="nav3">Comunidades</a></li>
-    <li><a href="#habilidades" data-i18n="nav4">Habilidades</a></li>
+  <a href="#hero" class="nav-brand">oSein</a>
+  <ul class="nav-links">
+    <li><a href="#hero"        data-i18n="nav_home">Início</a></li>
+    <li><a href="#services"    data-i18n="nav_services">Serviços</a></li>
+    <li><a href="#communities" data-i18n="nav_communities">Comunidades</a></li>
+    <li><a href="#skills"      data-i18n="nav_skills">Habilidades</a></li>
   </ul>
-
-  <div class="nav-right">
-    <button class="ctrl-btn" id="lang-btn" aria-label="Toggle language">EN</button>
-    <button class="ctrl-btn" id="theme-btn" aria-label="Toggle theme">☀</button>
-    <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+  <div class="nav-controls">
+    <button class="nav-btn" id="langToggle">EN</button>
+    <button class="nav-btn" id="themeToggle" title="Toggle theme">☾</button>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
-<!-- Mobile menu -->
-<div class="mobile-menu" id="mobile-menu" role="navigation">
-  <a href="#hero"        data-i18n="nav1" data-mobile>Início</a>
-  <a href="#servicos"    data-i18n="nav2" data-mobile>Serviços</a>
-  <a href="#comunidades" data-i18n="nav3" data-mobile>Comunidades</a>
-  <a href="#habilidades" data-i18n="nav4" data-mobile>Habilidades</a>
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#hero"        data-i18n="nav_home"        onclick="closeMobile()">Início</a></li>
+    <li><a href="#services"    data-i18n="nav_services"    onclick="closeMobile()">Serviços</a></li>
+    <li><a href="#communities" data-i18n="nav_communities" onclick="closeMobile()">Comunidades</a></li>
+    <li><a href="#skills"      data-i18n="nav_skills"      onclick="closeMobile()">Habilidades</a></li>
+  </ul>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     HERO
-═══════════════════════════════════════════════════════════ -->
+<!-- ──────────────────────────────────────────────── -->
+<!-- HERO -->
+<!-- ──────────────────────────────────────────────── -->
 <section id="hero">
   <div class="hero-inner">
-
-    <!-- Avatar -->
-    <div class="avatar-stack reveal" style="--delay:.0s">
-      <div class="avatar-pulse"></div>
-      <div class="avatar-pulse"></div>
-      <div class="orbit-wrapper">
-        <div class="orbit-dot"></div>
-      </div>
-      <div class="avatar-ring-static"></div>
-      <img class="avatar-img"
-        src="https://scontent.faru2-1.fna.fbcdn.net/v/t39.30808-6/486112535_1030290948996854_2784699620689577233_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=U_qbA5kHLMEQ7kNvwHyr3lz&_nc_oc=Adp3lcYB63-yd0WyU4Gxy36bUZK2VM-K7BU1x06MoFcOZh-7db-hSoyQi7rUqCo0wT_oSXSk8gyNhkNzSaLt5T_t&_nc_zt=23&_nc_ht=scontent.faru2-1.fna&_nc_gid=j5IB9NykMv3uviYePn7lMQ&_nc_ss=7b289&oh=00_Af21Sb30EVTjGeRb_tcdTYVst4ELkYgfbDSqutIQIk-Ngg&oe=69F2BEC3"
-        onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=oS&background=1a1a1a&color=e5e5e5&size=300&bold=true&font-size=0.4&rounded=true';"
-        alt="oSein avatar"
-        loading="eager"
+    <div class="avatar-wrap fade-in">
+      <div class="avatar-ring"></div>
+      <img
+        class="avatar-img"
+        src="https://i.pinimg.com/736x/93/c6/6e/93c66e735b6c02afb07c3ba23480dfd7.jpg"
+        alt="oSein"
+        onerror="this.src='https://ui-avatars.com/api/?name=oSein&background=1a1a1a&color=aaa&size=150'"
       />
+      <div class="orbit-dot"></div>
     </div>
 
-    <!-- Status pill -->
-    <div class="hero-status reveal" style="--delay:.08s">
-      <span class="status-dot"></span>
-      <span data-i18n="hero_status">Disponível para moderação</span>
-    </div>
-
-    <!-- Name & role -->
-    <div class="reveal" style="--delay:.14s">
-      <h1 class="hero-name">oSein</h1>
-      <p class="hero-role" data-i18n="hero_role">Discord Moderator &amp; Community Manager</p>
-    </div>
-
-    <!-- Description -->
-    <p class="hero-desc reveal" style="--delay:.2s" data-i18n="hero_desc">
-      Dedicated to building safe, welcoming, and well-structured Discord communities — with a sharp focus on moderation, member engagement, and conflict resolution.
+    <p class="hero-role fade-in fade-delay-1" data-i18n="hero_role">
+      Discord Moderator & Community Manager
     </p>
-
-    <!-- CTAs -->
-    <div class="hero-btns reveal" style="--delay:.26s">
-      <a href="https://discord.com/users/1077000858342006867" target="_blank" rel="noopener noreferrer" class="btn-fill">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
-        <span data-i18n="btn_contact">Entre em Contato</span>
-      </a>
-      <a href="#servicos" class="btn-ghost">
-        <span data-i18n="btn_services">Ver Serviços</span>
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-      </a>
-    </div>
-
-    <!-- Scroll hint -->
-    <div class="scroll-hint reveal" style="--delay:.34s" aria-hidden="true">
-      <span data-i18n="scroll_hint">Scroll</span>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-
+    <h1 class="hero-name fade-in fade-delay-2">oSein</h1>
+    <p class="hero-desc fade-in fade-delay-3" data-i18n="hero_desc">
+      Especialista em moderação e gestão de comunidades Discord.<br/>
+      Comprometido em construir ambientes seguros e organizados.
+    </p>
+    <a href="#contact" class="btn-primary fade-in fade-delay-4" data-i18n="hero_cta">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Entrar em contato
+    </a>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SERVICES
-═══════════════════════════════════════════════════════════ -->
-<section id="servicos">
+<!-- ──────────────────────────────────────────────── -->
+<!-- SERVICES -->
+<!-- ──────────────────────────────────────────────── -->
+<section id="services">
   <div class="section-inner">
-    <span class="section-eyebrow reveal" data-i18n="svc_eye">What I Do</span>
-    <h2 class="section-title reveal" data-i18n="svc_title">Serviços</h2>
-    <div class="divider reveal"></div>
-    <p class="section-desc reveal" data-i18n="svc_sub">Specialized in Discord server moderation and community management — delivering professional, consistent, and reliable results.</p>
-
+    <div class="section-header">
+      <div class="section-tag fade-in" data-i18n="services_tag">Serviços</div>
+      <h2 class="section-title fade-in fade-delay-1" data-i18n="services_title">O que eu ofereço</h2>
+      <p class="section-desc fade-in fade-delay-2" data-i18n="services_desc">
+        Moderação profissional e gestão de comunidades com foco em qualidade, organização e experiência do usuário.
+      </p>
+    </div>
     <div class="services-grid">
-      <div class="svc-card shimmer-border reveal" style="--delay:.06s">
-        <div class="svc-icon" aria-hidden="true">🛡</div>
-        <h3 class="svc-title" data-i18n="svc1_t">Server Moderation</h3>
-        <p class="svc-desc" data-i18n="svc1_d">Proactive enforcement of server rules, ban and warning management, and maintaining a respectful environment for all members.</p>
+      <div class="service-card fade-in">
+        <div class="service-icon">🛡️</div>
+        <h3 data-i18n="s1_title">Moderação Ativa</h3>
+        <p data-i18n="s1_desc">Monitoramento contínuo de canais, aplicação de regras e manutenção de um ambiente saudável e respeitoso para todos os membros.</p>
       </div>
-      <div class="svc-card shimmer-border reveal" style="--delay:.10s">
-        <div class="svc-icon" aria-hidden="true">🤝</div>
-        <h3 class="svc-title" data-i18n="svc2_t">Community Management</h3>
-        <p class="svc-desc" data-i18n="svc2_d">Organising events, fostering engagement, onboarding new members, and building a healthy, cohesive community culture.</p>
+      <div class="service-card fade-in fade-delay-1">
+        <div class="service-icon">👥</div>
+        <h3 data-i18n="s2_title">Gestão de Comunidade</h3>
+        <p data-i18n="s2_desc">Organização de estrutura de servidores, criação de canais, gestão de cargos e desenvolvimento de diretrizes claras para a comunidade.</p>
       </div>
-      <div class="svc-card shimmer-border reveal" style="--delay:.14s">
-        <div class="svc-icon" aria-hidden="true">⚖️</div>
-        <h3 class="svc-title" data-i18n="svc3_t">Conflict Resolution</h3>
-        <p class="svc-desc" data-i18n="svc3_d">Handling disputes calmly and impartially, ensuring fair outcomes while preserving a positive and safe atmosphere.</p>
+      <div class="service-card fade-in fade-delay-2">
+        <div class="service-icon">📋</div>
+        <h3 data-i18n="s3_title">Resolução de Conflitos</h3>
+        <p data-i18n="s3_desc">Mediação imparcial de disputas entre membros com foco em soluções construtivas e preservação do ambiente positivo.</p>
       </div>
-      <div class="svc-card shimmer-border reveal" style="--delay:.18s">
-        <div class="svc-icon" aria-hidden="true">📋</div>
-        <h3 class="svc-title" data-i18n="svc4_t">Ruleset Structuring</h3>
-        <p class="svc-desc" data-i18n="svc4_d">Drafting clear, balanced, and enforceable server rules tailored to each community's unique needs and tone.</p>
+      <div class="service-card fade-in fade-delay-3">
+        <div class="service-icon">⚙️</div>
+        <h3 data-i18n="s4_title">Configuração de Servidor</h3>
+        <p data-i18n="s4_desc">Setup completo de servidores Discord: permissões, cargos, canais, categorias e regras para máxima organização e segurança.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     COMMUNITIES
-═══════════════════════════════════════════════════════════ -->
-<section id="comunidades">
+<!-- ──────────────────────────────────────────────── -->
+<!-- COMMUNITIES -->
+<!-- ──────────────────────────────────────────────── -->
+<section id="communities">
   <div class="section-inner">
-    <span class="section-eyebrow reveal" data-i18n="comm_eye">Where I've Contributed</span>
-    <h2 class="section-title reveal" data-i18n="comm_title">Comunidades</h2>
-    <div class="divider reveal"></div>
-    <p class="section-desc reveal" data-i18n="comm_sub">Servers where I've applied my moderation and community management expertise.</p>
-
-    <div class="comm-grid">
+    <div class="section-header">
+      <div class="section-tag fade-in" data-i18n="comm_tag">Comunidades</div>
+      <h2 class="section-title fade-in fade-delay-1" data-i18n="comm_title">Onde atuei</h2>
+      <p class="section-desc fade-in fade-delay-2" data-i18n="comm_desc">
+        Servidores nos quais contribuí como moderador, promovendo organização e experiências positivas.
+      </p>
+    </div>
+    <div class="communities-grid">
 
       <!-- Anime Crash -->
-      <div class="comm-card shimmer-border reveal" data-tilt style="--delay:.06s">
-        <div class="comm-header">
-          <img class="comm-icon" src="https://osein.vercel.app/assets/Anime%20Crash.webp" alt="Anime Crash icon" loading="lazy" />
-          <div>
-            <div class="comm-name">Anime Crash</div>
-            <span class="comm-badge">Moderator (Retired)</span>
-          </div>
-        </div>
-        <div class="comm-body" data-i18n="comm1_d">Contributed as Moderator, ensuring a safe and engaging environment for the server's members.</div>
-        <div class="comm-footer">
-          <a href="https://discord.gg/K5gSxMUsm" target="_blank" rel="noopener noreferrer" class="btn-comm">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
-            <span data-i18n="btn_join">Acessar Servidor</span>
+      <div class="comm-card fade-in">
+        <img class="comm-icon"
+          src="https://osein.vercel.app/assets/Anime%20Crash.webp"
+          alt="Anime Crash"
+          onerror="this.src='https://ui-avatars.com/api/?name=AC&background=1a1a1a&color=aaa&size=56'"
+        />
+        <div class="comm-info">
+          <h3>Anime Crash</h3>
+          <span class="comm-role" data-i18n="role_mod_ret">Moderator (Retired)</span>
+          <p class="comm-desc" data-i18n="comm_crash_desc">Comunidade de anime com foco em discussões e eventos temáticos.</p>
+          <a href="https://discord.gg/K5gSxMUsm" target="_blank" rel="noopener" class="btn-comm">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            <span data-i18n="btn_server">Acessar Servidor</span>
           </a>
         </div>
       </div>
 
       <!-- Anime Brawl -->
-      <div class="comm-card shimmer-border reveal" data-tilt style="--delay:.10s">
-        <div class="comm-header">
-          <img class="comm-icon" src="https://osein.vercel.app/assets/Anime%20Brawl.png" alt="Anime Brawl icon" loading="lazy" />
-          <div>
-            <div class="comm-name">Anime Brawl</div>
-            <span class="comm-badge">Trial Moderator</span>
-          </div>
-        </div>
-        <div class="comm-body" data-i18n="comm2_d">Serving as Trial Moderator, gaining experience in community moderation and rule enforcement.</div>
-        <div class="comm-footer">
-          <a href="https://discord.gg/xCN3kvCwzG" target="_blank" rel="noopener noreferrer" class="btn-comm">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
-            <span data-i18n="btn_join">Acessar Servidor</span>
+      <div class="comm-card fade-in fade-delay-1">
+        <img class="comm-icon"
+          src="https://osein.vercel.app/assets/Anime%20Brawl.png"
+          alt="Anime Brawl"
+          onerror="this.src='https://ui-avatars.com/api/?name=AB&background=1a1a1a&color=aaa&size=56'"
+        />
+        <div class="comm-info">
+          <h3>Anime Brawl</h3>
+          <span class="comm-role" data-i18n="role_trial">Trial Moderator</span>
+          <p class="comm-desc" data-i18n="comm_brawl_desc">Servidor competitivo de anime com foco em batalhas e rankings da comunidade.</p>
+          <a href="https://discord.gg/xCN3kvCwzG" target="_blank" rel="noopener" class="btn-comm">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            <span data-i18n="btn_server">Acessar Servidor</span>
           </a>
         </div>
       </div>
 
       <!-- Anime All -->
-      <div class="comm-card shimmer-border reveal" data-tilt style="--delay:.14s">
-        <div class="comm-header">
-          <img class="comm-icon" src="https://osein.vercel.app/assets/AL.webp" alt="Anime All icon" loading="lazy" />
-          <div>
-            <div class="comm-name">Anime All</div>
-            <span class="comm-badge">Moderator (Retired)</span>
-          </div>
-        </div>
-        <div class="comm-body" data-i18n="comm3_d">Worked as Moderator, managing conflicts and supporting a positive member experience within a large community.</div>
-        <div class="comm-footer">
-          <a href="https://discord.com/invite/CkVnGNm3Ct" target="_blank" rel="noopener noreferrer" class="btn-comm">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
-            <span data-i18n="btn_join">Acessar Servidor</span>
+      <div class="comm-card fade-in fade-delay-2">
+        <img class="comm-icon"
+          src="https://osein.vercel.app/assets/AL.webp"
+          alt="Anime All"
+          onerror="this.src='https://ui-avatars.com/api/?name=AL&background=1a1a1a&color=aaa&size=56'"
+        />
+        <div class="comm-info">
+          <h3>Anime All</h3>
+          <span class="comm-role" data-i18n="role_mod_ret">Moderator (Retired)</span>
+          <p class="comm-desc" data-i18n="comm_all_desc">Uma das maiores comunidades de anime em português, reunindo fãs do Brasil e de Portugal.</p>
+          <a href="https://discord.com/invite/CkVnGNm3Ct" target="_blank" rel="noopener" class="btn-comm">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            <span data-i18n="btn_server">Acessar Servidor</span>
           </a>
         </div>
       </div>
 
       <!-- Anime Paradise -->
-      <div class="comm-card shimmer-border reveal" data-tilt style="--delay:.18s">
-        <div class="comm-header">
-          <img class="comm-icon" src="https://cdn.discordapp.com/icons/1478021532969078908/9240e8e4521081a23596c62f30196aa2.png?size=2048" alt="Anime Paradise icon" loading="lazy" />
-          <div>
-            <div class="comm-name">Anime Paradise</div>
-            <span class="comm-badge">Moderator</span>
-          </div>
-        </div>
-        <div class="comm-body" data-i18n="comm4_d">Currently serving as Moderator — ensuring smooth operations, rule adherence, and a welcoming atmosphere for all members.</div>
-        <div class="comm-footer">
-          <a href="https://discord.gg/P8J8DzcvK3" target="_blank" rel="noopener noreferrer" class="btn-comm">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
-            <span data-i18n="btn_join">Acessar Servidor</span>
+      <div class="comm-card fade-in fade-delay-3">
+        <img class="comm-icon"
+          src="https://cdn.discordapp.com/icons/1478021532969078908/9240e8e4521081a23596c62f30196aa2.png?size=2048"
+          alt="Anime Paradise"
+          onerror="this.src='https://ui-avatars.com/api/?name=AP&background=1a1a1a&color=aaa&size=56'"
+        />
+        <div class="comm-info">
+          <h3>Anime Paradise</h3>
+          <span class="comm-role" data-i18n="role_mod">Moderator</span>
+          <p class="comm-desc" data-i18n="comm_paradise_desc">Comunidade dedicada a criar um espaço acolhedor e seguro para todos os fãs de anime.</p>
+          <a href="https://discord.gg/P8J8DzcvK3" target="_blank" rel="noopener" class="btn-comm">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            <span data-i18n="btn_server">Acessar Servidor</span>
           </a>
         </div>
       </div>
@@ -834,246 +744,236 @@ footer a:hover { color: var(--text); }
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SKILLS
-═══════════════════════════════════════════════════════════ -->
-<section id="habilidades">
+<!-- ──────────────────────────────────────────────── -->
+<!-- SKILLS -->
+<!-- ──────────────────────────────────────────────── -->
+<section id="skills">
   <div class="section-inner">
-    <span class="section-eyebrow reveal" data-i18n="sk_eye">Expertise</span>
-    <h2 class="section-title reveal" data-i18n="sk_title">Habilidades</h2>
-    <div class="divider reveal"></div>
-
-    <div class="skills-grid">
-      <div class="skill-card shimmer-border reveal" style="--delay:.04s">
-        <div class="skill-label" data-i18n="sk1">Moderation</div>
-        <div class="skill-track"><div class="skill-fill" style="--w:.96"></div></div>
-      </div>
-      <div class="skill-card shimmer-border reveal" style="--delay:.08s">
-        <div class="skill-label" data-i18n="sk2">Community Management</div>
-        <div class="skill-track"><div class="skill-fill" style="--w:.91"></div></div>
-      </div>
-      <div class="skill-card shimmer-border reveal" style="--delay:.12s">
-        <div class="skill-label" data-i18n="sk3">Conflict Resolution</div>
-        <div class="skill-track"><div class="skill-fill" style="--w:.88"></div></div>
-      </div>
-      <div class="skill-card shimmer-border reveal" style="--delay:.16s">
-        <div class="skill-label" data-i18n="sk4">Rule Enforcement</div>
-        <div class="skill-track"><div class="skill-fill" style="--w:.93"></div></div>
-      </div>
-      <div class="skill-card shimmer-border reveal" style="--delay:.20s">
-        <div class="skill-label" data-i18n="sk5">Member Engagement</div>
-        <div class="skill-track"><div class="skill-fill" style="--w:.84"></div></div>
-      </div>
-      <div class="skill-card shimmer-border reveal" style="--delay:.24s">
-        <div class="skill-label" data-i18n="sk6">Team Coordination</div>
-        <div class="skill-track"><div class="skill-fill" style="--w:.82"></div></div>
-      </div>
+    <div class="section-header">
+      <div class="section-tag fade-in" data-i18n="skills_tag">Habilidades</div>
+      <h2 class="section-title fade-in fade-delay-1" data-i18n="skills_title">Meu Conjunto de Skills</h2>
+      <p class="section-desc fade-in fade-delay-2" data-i18n="skills_desc">
+        Competências desenvolvidas ao longo da minha experiência em moderação e gestão de comunidades.
+      </p>
+    </div>
+    <div class="skills-wrap fade-in fade-delay-1">
+      <span class="skill-tag"><span class="skill-dot"></span><span data-i18n="sk1">Moderação de Comunidades</span></span>
+      <span class="skill-tag"><span class="skill-dot"></span><span data-i18n="sk2">Gestão de Servidores</span></span>
+      <span class="skill-tag"><span class="skill-dot"></span><span data-i18n="sk3">Resolução de Conflitos</span></span>
+      <span class="skill-tag"><span class="skill-dot"></span><span data-i18n="sk4">Comunicação Profissional</span></span>
+      <span class="skill-tag"><span class="skill-dot"></span><span data-i18n="sk5">Criação de Regras</span></span>
+      <span class="skill-tag"><span class="skill-dot"></span><span data-i18n="sk6">Gestão de Cargos</span></span>
+      <span class="skill-tag"><span class="skill-dot"></span><span data-i18n="sk7">Análise de Comportamento</span></span>
+      <span class="skill-tag"><span class="skill-dot"></span><span data-i18n="sk8">Suporte à Comunidade</span></span>
+      <span class="skill-tag"><span class="skill-dot"></span><span data-i18n="sk9">Liderança</span></span>
+      <span class="skill-tag"><span class="skill-dot"></span><span data-i18n="sk10">Organização</span></span>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     CONTACT
-═══════════════════════════════════════════════════════════ -->
-<section id="contato">
-  <div class="section-inner" style="padding-bottom: clamp(80px,10vw,120px);">
-    <div class="contact-card shimmer-border reveal">
-      <div class="contact-inner">
-        <div class="contact-icon" aria-hidden="true">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
-        </div>
-        <h2 class="contact-heading" data-i18n="contact_h">Precisa de uma mãozinha no seu servidor?</h2>
-        <p class="contact-sub" data-i18n="contact_sub">Me mande uma mensagem! Terei o maior prazer em ouvir as necessidades da sua comunidade e ver como posso ajudar.</p>
-        <a href="https://discord.com/users/1077000858342006867" target="_blank" rel="noopener noreferrer" class="btn-fill contact-btn">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
-          <span data-i18n="contact_btn">Falar com oSein no Discord</span>
-        </a>
-      </div>
+<!-- ──────────────────────────────────────────────── -->
+<!-- CONTACT -->
+<!-- ──────────────────────────────────────────────── -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-card fade-in">
+      <h3 data-i18n="contact_title">Precisa de uma mãozinha no seu servidor?</h3>
+      <p data-i18n="contact_desc">
+        Me mande uma mensagem! Terei o maior prazer em ouvir as necessidades da sua comunidade e ver como posso ajudar.
+      </p>
+      <a
+        href="https://discord.com/users/1077000858342006867"
+        target="_blank" rel="noopener"
+        class="btn-discord"
+        data-i18n="contact_btn"
+      >
+        <svg class="discord-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+        </svg>
+        Falar com oSein no Discord
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     FOOTER
-═══════════════════════════════════════════════════════════ -->
-<footer class="reveal">
-  <span>© <span id="yr"></span> oSein</span>
-  <span style="color:var(--text-muted)">—</span>
-  <span data-i18n="footer_txt">Discord Moderator &amp; Community Manager</span>
+<!-- ──────────────────────────────────────────────── -->
+<!-- FOOTER -->
+<!-- ──────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+      </svg>
+    </div>
+    <span class="footer-text">
+      © <span id="year"></span> <span class="footer-brand">oSein</span>
+      <span data-i18n="footer_role"> — Discord Moderator & Community Manager</span>
+    </span>
+  </div>
 </footer>
 
-<!-- ═══════════════════════════════════════════════════════════
-     JAVASCRIPT
-═══════════════════════════════════════════════════════════ -->
+<!-- ─── SCRIPTS ──────────────────────────────────────────── -->
 <script>
-'use strict';
-
-/* ── Year ─────────────────────────────────────────────────── */
-document.getElementById('yr').textContent = new Date().getFullYear();
-
-/* ── Cursor ───────────────────────────────────────────────── */
-const $cursor = document.getElementById('cursor');
-const $ring   = document.getElementById('cursor-ring');
-let mouseX = -200, mouseY = -200;
-let ringX  = -200, ringY  = -200;
-
-window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
-
-(function tick() {
-  ringX += (mouseX - ringX) * 0.1;
-  ringY += (mouseY - ringY) * 0.1;
-  $cursor.style.left = mouseX + 'px';
-  $cursor.style.top  = mouseY + 'px';
-  $ring.style.left   = ringX  + 'px';
-  $ring.style.top    = ringY  + 'px';
-  requestAnimationFrame(tick);
+/* ── CURSOR ── */
+const cursor    = document.getElementById('cursor');
+const cursorDot = document.getElementById('cursor-dot');
+let mx = -100, my = -100, cx = -100, cy = -100;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+(function animCursor(){
+  cx += (mx - cx) * 0.18;
+  cy += (my - cy) * 0.18;
+  cursor.style.left    = mx + 'px';
+  cursor.style.top     = my + 'px';
+  cursorDot.style.left = mx + 'px';
+  cursorDot.style.top  = my + 'px';
+  requestAnimationFrame(animCursor);
 })();
-
-document.querySelectorAll('a, button, [data-tilt], .svc-card, .skill-card').forEach(el => {
-  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+document.querySelectorAll('a, button, .btn-primary, .btn-discord, .btn-comm, .skill-tag, .comm-card, .service-card').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
 });
 
-/* ── Theme ────────────────────────────────────────────────── */
-const $themeBtn = document.getElementById('theme-btn');
-$themeBtn.addEventListener('click', () => {
-  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-  document.documentElement.setAttribute('data-theme', isLight ? 'dark' : 'light');
-  $themeBtn.textContent = isLight ? '☀' : '🌙';
+/* ── DYNAMIC YEAR ── */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ── THEME TOGGLE ── */
+const themeBtn = document.getElementById('themeToggle');
+themeBtn.addEventListener('click', () => {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  themeBtn.textContent = isDark ? '☀' : '☾';
 });
 
-/* ── Hamburger ────────────────────────────────────────────── */
-const $ham   = document.getElementById('hamburger');
-const $mMenu = document.getElementById('mobile-menu');
-$ham.addEventListener('click', () => {
-  const open = $mMenu.classList.toggle('open');
-  $ham.classList.toggle('open', open);
-  $ham.setAttribute('aria-expanded', open);
-});
-$mMenu.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => {
-    $mMenu.classList.remove('open');
-    $ham.classList.remove('open');
-    $ham.setAttribute('aria-expanded', false);
-  });
-});
+/* ── HAMBURGER ── */
+const hamBtn     = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+function closeMobile(){ mobileMenu.classList.remove('open'); }
 
-/* ── Language ─────────────────────────────────────────────── */
-const translations = {
+/* ── SCROLL FADE-IN ── */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+/* ── I18N ── */
+const TRANSLATIONS = {
   pt: {
-    nav1:'Início', nav2:'Serviços', nav3:'Comunidades', nav4:'Habilidades',
-    contact_h:'Precisa de uma mãozinha no seu servidor?',
-    contact_sub:'Me mande uma mensagem! Terei o maior prazer em ouvir as necessidades da sua comunidade e ver como posso ajudar.',
-    contact_btn:'Falar com oSein no Discord',
-    hero_status:'Disponível para moderação',
-    hero_role:'Discord Moderator & Community Manager',
-    hero_desc:'Dedicado a construir comunidades Discord seguras, acolhedoras e bem estruturadas — com foco firme em moderação, engajamento e resolução de conflitos.',
-    btn_contact:'Entre em Contato', btn_services:'Ver Serviços', scroll_hint:'Rolar',
-    svc_eye:'O Que Faço', svc_title:'Serviços',
-    svc_sub:'Especializado em moderação de servidores Discord e gestão de comunidades — entregando resultados profissionais, consistentes e confiáveis.',
-    svc1_t:'Moderação de Servidor', svc1_d:'Aplicação proativa das regras do servidor, gestão de banimentos e avisos, mantendo um ambiente respeitoso para todos os membros.',
-    svc2_t:'Gestão de Comunidade',  svc2_d:'Organização de eventos, incentivo ao engajamento, integração de novos membros e construção de uma cultura comunitária saudável e coesa.',
-    svc3_t:'Resolução de Conflitos', svc3_d:'Gerenciamento de disputas de forma calma e imparcial, garantindo resultados justos e preservando uma atmosfera positiva e segura.',
-    svc4_t:'Estruturação de Regras', svc4_d:'Elaboração de regras claras, equilibradas e aplicáveis, adaptadas às necessidades únicas e ao tom de cada comunidade.',
-    comm_eye:'Onde Contribuí', comm_title:'Comunidades',
-    comm_sub:'Servidores onde apliquei minha expertise em moderação e gestão de comunidades.',
-    comm1_d:'Contribuí como Moderador, garantindo um ambiente seguro e engajante para os membros do servidor.',
-    comm2_d:'Atuando como Moderador Trainee, adquirindo experiência em moderação de comunidade e aplicação de regras.',
-    comm3_d:'Trabalhei como Moderador, gerenciando conflitos e apoiando uma experiência positiva para os membros.',
-    comm4_d:'Atualmente atuando como Moderador — garantindo operações tranquilas, cumprimento das regras e uma atmosfera acolhedora.',
-    btn_join:'Acessar Servidor',
-    sk_eye:'Expertise', sk_title:'Habilidades',
-    sk1:'Moderação', sk2:'Gestão de Comunidade', sk3:'Resolução de Conflitos',
-    sk4:'Aplicação de Regras', sk5:'Engajamento de Membros', sk6:'Coordenação de Equipe',
-    footer_txt:'Discord Moderator & Community Manager',
+    nav_home:        'Início',
+    nav_services:    'Serviços',
+    nav_communities: 'Comunidades',
+    nav_skills:      'Habilidades',
+    hero_role:       'Discord Moderator & Community Manager',
+    hero_desc:       'Especialista em moderação e gestão de comunidades Discord.\nComprometido em construir ambientes seguros e organizados.',
+    hero_cta:        'Entrar em contato',
+    services_tag:    'Serviços',
+    services_title:  'O que eu ofereço',
+    services_desc:   'Moderação profissional e gestão de comunidades com foco em qualidade, organização e experiência do usuário.',
+    s1_title: 'Moderação Ativa',
+    s1_desc:  'Monitoramento contínuo de canais, aplicação de regras e manutenção de um ambiente saudável e respeitoso para todos os membros.',
+    s2_title: 'Gestão de Comunidade',
+    s2_desc:  'Organização de estrutura de servidores, criação de canais, gestão de cargos e desenvolvimento de diretrizes claras para a comunidade.',
+    s3_title: 'Resolução de Conflitos',
+    s3_desc:  'Mediação imparcial de disputas entre membros com foco em soluções construtivas e preservação do ambiente positivo.',
+    s4_title: 'Configuração de Servidor',
+    s4_desc:  'Setup completo de servidores Discord: permissões, cargos, canais, categorias e regras para máxima organização e segurança.',
+    comm_tag:   'Comunidades',
+    comm_title: 'Onde atuei',
+    comm_desc:  'Servidores nos quais contribuí como moderador, promovendo organização e experiências positivas.',
+    role_mod_ret: 'Moderator (Retired)',
+    role_trial:   'Trial Moderator',
+    role_mod:     'Moderator',
+    comm_crash_desc:   'Comunidade de anime com foco em discussões e eventos temáticos.',
+    comm_brawl_desc:   'Servidor competitivo de anime com foco em batalhas e rankings da comunidade.',
+    comm_all_desc:     'Uma das maiores comunidades de anime em português, reunindo fãs do Brasil e de Portugal.',
+    comm_paradise_desc:'Comunidade dedicada a criar um espaço acolhedor e seguro para todos os fãs de anime.',
+    btn_server:    'Acessar Servidor',
+    skills_tag:   'Habilidades',
+    skills_title: 'Meu Conjunto de Skills',
+    skills_desc:  'Competências desenvolvidas ao longo da minha experiência em moderação e gestão de comunidades.',
+    sk1:  'Moderação de Comunidades',
+    sk2:  'Gestão de Servidores',
+    sk3:  'Resolução de Conflitos',
+    sk4:  'Comunicação Profissional',
+    sk5:  'Criação de Regras',
+    sk6:  'Gestão de Cargos',
+    sk7:  'Análise de Comportamento',
+    sk8:  'Suporte à Comunidade',
+    sk9:  'Liderança',
+    sk10: 'Organização',
+    contact_title: 'Precisa de uma mãozinha no seu servidor?',
+    contact_desc:  'Me mande uma mensagem! Terei o maior prazer em ouvir as necessidades da sua comunidade e ver como posso ajudar.',
+    contact_btn:   'Falar com oSein no Discord',
+    footer_role:   ' — Discord Moderator & Community Manager',
   },
   en: {
-    nav1:'Home', nav2:'Services', nav3:'Communities', nav4:'Skills',
-    contact_h:'Need a hand with your server?',
-    contact_sub:'Send me a message! I would be happy to hear your community needs and see how I can help.',
-    contact_btn:'Talk to oSein on Discord',
-    hero_status:'Available for moderation',
-    hero_role:'Discord Moderator & Community Manager',
-    hero_desc:'Dedicated to building safe, welcoming, and well-structured Discord communities — with a sharp focus on moderation, member engagement, and conflict resolution.',
-    btn_contact:'Get in Touch', btn_services:'View Services', scroll_hint:'Scroll',
-    svc_eye:'What I Do', svc_title:'Services',
-    svc_sub:'Specialized in Discord server moderation and community management — delivering professional, consistent, and reliable results.',
-    svc1_t:'Server Moderation', svc1_d:'Proactive enforcement of server rules, ban and warning management, and maintaining a respectful environment for all members.',
-    svc2_t:'Community Management', svc2_d:'Organising events, fostering engagement, onboarding new members, and building a healthy, cohesive community culture.',
-    svc3_t:'Conflict Resolution', svc3_d:'Handling disputes calmly and impartially, ensuring fair outcomes while preserving a positive and safe atmosphere.',
-    svc4_t:'Ruleset Structuring', svc4_d:"Drafting clear, balanced, and enforceable server rules tailored to each community's unique needs and tone.",
-    comm_eye:"Where I've Contributed", comm_title:'Communities',
-    comm_sub:"Servers where I've applied my moderation and community management expertise.",
-    comm1_d:"Contributed as Moderator, ensuring a safe and engaging environment for the server's members.",
-    comm2_d:'Serving as Trial Moderator, gaining experience in community moderation and rule enforcement.',
-    comm3_d:'Worked as Moderator, managing conflicts and supporting a positive member experience within a large community.',
-    comm4_d:'Currently serving as Moderator — ensuring smooth operations, rule adherence, and a welcoming atmosphere for all members.',
-    btn_join:'Join Server',
-    sk_eye:'Expertise', sk_title:'Skills',
-    sk1:'Moderation', sk2:'Community Management', sk3:'Conflict Resolution',
-    sk4:'Rule Enforcement', sk5:'Member Engagement', sk6:'Team Coordination',
-    footer_txt:'Discord Moderator & Community Manager',
+    nav_home:        'Home',
+    nav_services:    'Services',
+    nav_communities: 'Communities',
+    nav_skills:      'Skills',
+    hero_role:       'Discord Moderator & Community Manager',
+    hero_desc:       'Expert in Discord moderation and community management.\nCommitted to building safe and organized environments.',
+    hero_cta:        'Get in touch',
+    services_tag:    'Services',
+    services_title:  'What I offer',
+    services_desc:   'Professional moderation and community management focused on quality, organization, and user experience.',
+    s1_title: 'Active Moderation',
+    s1_desc:  'Continuous channel monitoring, rule enforcement, and maintaining a healthy and respectful environment for all members.',
+    s2_title: 'Community Management',
+    s2_desc:  'Server structure organization, channel creation, role management, and development of clear community guidelines.',
+    s3_title: 'Conflict Resolution',
+    s3_desc:  'Impartial mediation of disputes between members focused on constructive solutions and preserving a positive environment.',
+    s4_title: 'Server Configuration',
+    s4_desc:  'Complete Discord server setup: permissions, roles, channels, categories, and rules for maximum organization and security.',
+    comm_tag:   'Communities',
+    comm_title: 'Where I worked',
+    comm_desc:  'Servers where I contributed as a moderator, promoting organization and positive experiences.',
+    role_mod_ret: 'Moderator (Retired)',
+    role_trial:   'Trial Moderator',
+    role_mod:     'Moderator',
+    comm_crash_desc:   'Anime community focused on themed discussions and events.',
+    comm_brawl_desc:   'Competitive anime server focused on battles and community rankings.',
+    comm_all_desc:     'One of the largest Portuguese-language anime communities, gathering fans from Brazil and Portugal.',
+    comm_paradise_desc:'Community dedicated to creating a welcoming and safe space for all anime fans.',
+    btn_server:    'Access Server',
+    skills_tag:   'Skills',
+    skills_title: 'My Skill Set',
+    skills_desc:  'Competencies developed throughout my experience in moderation and community management.',
+    sk1:  'Community Moderation',
+    sk2:  'Server Management',
+    sk3:  'Conflict Resolution',
+    sk4:  'Professional Communication',
+    sk5:  'Rule Creation',
+    sk6:  'Role Management',
+    sk7:  'Behavior Analysis',
+    sk8:  'Community Support',
+    sk9:  'Leadership',
+    sk10: 'Organization',
+    contact_title: 'Need a hand with your server?',
+    contact_desc:  'Send me a message! I would be happy to hear about your community\'s needs and see how I can help.',
+    contact_btn:   'Talk to oSein on Discord',
+    footer_role:   ' — Discord Moderator & Community Manager',
   }
 };
 
 let currentLang = 'pt';
-const $langBtn = document.getElementById('lang-btn');
+const langBtn = document.getElementById('langToggle');
 
-function applyTranslation(lang) {
-  const t = translations[lang];
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const k = el.dataset.i18n;
-    if (t[k] !== undefined) el.textContent = t[k];
-  });
+function applyLang(lang) {
+  currentLang = lang;
+  langBtn.textContent = lang === 'pt' ? 'EN' : 'PT';
   document.documentElement.lang = lang;
+  const t = TRANSLATIONS[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if(t[key] !== undefined) el.textContent = t[key];
+  });
 }
 
-$langBtn.addEventListener('click', () => {
-  currentLang = currentLang === 'pt' ? 'en' : 'pt';
-  $langBtn.textContent = currentLang === 'pt' ? 'EN' : 'PT';
-  applyTranslation(currentLang);
-});
-applyTranslation(currentLang);
-
-/* ── Smooth scroll (nav links + mobile) ────────────────────── */
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const target = document.querySelector(a.getAttribute('href'));
-    if (!target) return;
-    e.preventDefault();
-    const offset = target.getBoundingClientRect().top + window.scrollY - 62;
-    window.scrollTo({ top: offset, behavior: 'smooth' });
-  });
-});
-
-/* ── Scroll reveal ────────────────────────────────────────── */
-const revealObs = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const delay = parseFloat(entry.target.style.getPropertyValue('--delay') || 0);
-      setTimeout(() => entry.target.classList.add('in-view'), delay * 1000);
-      revealObs.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
-
-/* ── 3D Tilt on community cards ────────────────────────────── */
-document.querySelectorAll('[data-tilt]').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const r  = card.getBoundingClientRect();
-    const xP = (e.clientX - r.left) / r.width  - 0.5;   // -0.5 → 0.5
-    const yP = (e.clientY - r.top)  / r.height - 0.5;
-    card.style.transform = `perspective(700px) rotateY(${xP * 9}deg) rotateX(${-yP * 9}deg) scale3d(1.02,1.02,1.02) translateY(-4px)`;
-    card.style.boxShadow = `0 24px 64px rgba(0,0,0,0.5), 0 0 28px rgba(160,160,160,0.12)`;
-    card.style.borderColor = 'rgba(220,220,220,0.13)';
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform  = '';
-    card.style.boxShadow  = '';
-    card.style.borderColor = '';
-  });
+langBtn.addEventListener('click', () => {
+  applyLang(currentLang === 'pt' ? 'en' : 'pt');
 });
 </script>
 </body>
