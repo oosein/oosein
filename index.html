@@ -1,98 +1,152 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>oSein | Staff Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>oSein | Gestão de Comunidades</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #000; --text: #fff; --dim: #888; --border: rgba(255,255,255,0.1); }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; cursor: none; }
-        body { background: var(--bg); color: var(--text); overflow-x: hidden; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        /* Cursor Custom */
-        #cursor { width: 8px; height: 8px; background: #fff; border-radius: 50%; position: fixed; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); }
-        #cursor-f { width: 30px; height: 30px; border: 1px solid rgba(255,255,255,0.4); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: all 0.1s ease-out; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+        }
 
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 0 10%; height: 80px; border-bottom: 1px solid var(--border); }
-        .logo { font-weight: 800; font-size: 1.2rem; }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
 
-        header { text-align: center; padding: 100px 10%; background: radial-gradient(circle at 50% 0%, #111, transparent); }
-        .capa { width: 150px; height: 150px; border-radius: 50%; border: 2px solid var(--border); margin-bottom: 30px; object-fit: cover; }
-        
-        h1 { font-size: 4rem; font-weight: 800; line-height: 1; margin-bottom: 20px; letter-spacing: -2px; }
-        h1 span { color: var(--dim); }
-        p.sub { color: var(--dim); max-width: 600px; margin: 0 auto 40px; font-size: 1.1rem; }
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 80px;
+        }
 
-        .section-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; color: var(--dim); text-align: center; margin: 60px 0 30px; }
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #222;
+            margin-bottom: 24px;
+        }
 
-        /* Grid Vercel Style */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 0 10% 100px; }
-        .card { background: #000; padding: 40px; transition: 0.3s; }
-        .card:hover { background: #080808; }
-        
-        .card img { width: 50px; height: 50px; border-radius: 10px; margin-bottom: 20px; border: 1px solid var(--border); }
-        .tag { font-size: 0.6rem; font-weight: 800; color: #0070f3; display: block; margin-bottom: 10px; }
-        .card h3 { margin-bottom: 10px; font-size: 1.2rem; }
-        .card p { color: var(--dim); font-size: 0.9rem; line-height: 1.5; }
-        
-        .btn-link { display: inline-block; margin-top: 20px; color: #fff; text-decoration: none; font-size: 0.8rem; font-weight: 600; border-bottom: 1px solid #333; transition: 0.3s; }
-        .btn-link:hover { border-bottom-color: #fff; }
+        .name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
 
-        footer { padding: 60px; text-align: center; color: #222; font-size: 0.7rem; font-weight: 800; border-top: 1px solid var(--border); }
-    </style>
-</head>
-<body>
-    <div id="cursor"></div><div id="cursor-f"></div>
+        .title {
+            font-size: 1.1rem;
+            color: #888;
+            margin-bottom: 24px;
+        }
 
-    <nav><div class="logo">OSEIN</div><div style="font-size: 0.7rem; color: var(--dim);">STAFF PORTFOLIO</div></nav>
+        .discord-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #5865F2;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
 
-    <header>
-        <img src="https://i.imgur.com/vHq4R2E.png" class="capa" alt="Sei Profile">
-        <h1>High Performance. <br><span>Faster communities.</span></h1>
-        <p class="sub">Especialista em infraestrutura e segurança para servidores de Discord. Organização de alto nível para grandes comunidades.</p>
-    </header>
+        .discord-btn:hover {
+            background-color: #4752C4;
+            transform: translateY(-2px);
+        }
 
-    <div class="section-title">Comunidades Ativas</div>
-    <section class="grid">
-        <div class="card">
-            <img src="https://i.imgur.com/eBf7T8O.png">
-            <span class="tag">MODERADOR</span>
-            <h3>Anime Crash</h3>
-            <p>Gestão de equipe e resolução de conflitos internos.</p>
-            <a href="https://discord.gg/K5gSxMUsm" class="btn-link">Join Server →</a>
-        </div>
-        <div class="card">
-            <img src="https://i.imgur.com/vYl0Jv7.png">
-            <span class="tag">TRIAL MOD</span>
-            <h3>Anime Brawl</h3>
-            <p>Auxílio na estruturação técnica e organização de canais.</p>
-            <a href="https://discord.gg/xCN3kvCwzG" class="btn-link">Join Server →</a>
-        </div>
-        <div class="card">
-            <img src="https://i.imgur.com/yU4lZ6W.png">
-            <span class="tag">MODERADOR</span>
-            <h3>Anime All</h3>
-            <p>Monitoramento preventivo e suporte ativo via tickets.</p>
-            <a href="https://discord.com/invite/CkVnGNm3Ct" class="btn-link">Join Server →</a>
-        </div>
-        <div class="card">
-            <img src="https://i.imgur.com/C3fEAnx.png">
-            <span class="tag">MODERADOR</span>
-            <h3>Anime Fallen</h3>
-            <p>Manutenção da ordem e aplicação das regras da comunidade.</p>
-            <a href="https://discord.gg/xYMbWT8hby" class="btn-link">Join Server →</a>
-        </div>
-    </section>
+        .discord-btn svg {
+            width: 20px;
+            height: 20px;
+        }
 
-    <footer>© 2026 OSEIN. POWERED BY CODE.</footer>
+        /* Communities Section */
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 32px;
+            text-align: center;
+        }
 
-    <script>
-        const c = document.getElementById('cursor'); const f = document.getElementById('cursor-f');
-        document.addEventListener('mousemove', (e) => {
-            c.style.left = e.clientX + 'px'; c.style.top = e.clientY + 'px';
-            setTimeout(() => { f.style.left = e.clientX + 'px'; f.style.top = e.clientY + 'px'; }, 50);
-        });
-    </script>
-</body>
-</html>
+        .communities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .community-card {
+            background-color: #111;
+            border: 1px solid #222;
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .community-card:hover {
+            border-color: #444;
+            transform: translateY(-4px);
+            background-color: #151515;
+        }
+
+        .community-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .community-info {
+            flex: 1;
+        }
+
+        .community-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .community-role {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .arrow {
+            color: #555;
+            transition: all 0.3s ease;
+        }
+
+        .community-card:hover .arrow {
+            color: #fff;
+            transform: translateX(4px);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid #222
