@@ -3,185 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>oSein | Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>oSein | Staff Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #fff; --text: #000; --card: #fff; --border: #000;
-            --shadow: 10px 10px 0px #000;
-            --shadow-btn: 4px 4px 0px #000;
+            --bg: #000000;
+            --text: #ffffff;
+            --text-dim: #888888;
+            --border: rgba(255, 255, 255, 0.1);
+            --accent: #ffffff;
         }
 
-        [data-theme="dark"] {
-            --bg: #000; --text: #fff; --card: #000; --border: #fff;
-            --shadow: 10px 10px 0px #fff;
-            --shadow-btn: 4px 4px 0px #fff;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; cursor: none; }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.5; overflow-x: hidden; }
+
+        /* Cursor Vercel Style */
+        #cursor {
+            width: 8px; height: 8px; background: #fff; border-radius: 50%;
+            position: fixed; pointer-events: none; z-index: 9999;
+            transition: transform 0.15s ease-out; transform: translate(-50%, -50%);
+        }
+        #cursor-follower {
+            width: 30px; height: 30px; border: 1px solid rgba(255,255,255,0.3); border-radius: 50%;
+            position: fixed; pointer-events: none; z-index: 9998;
+            transition: transform 0.3s ease-out; transform: translate(-50%, -50%);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Public Sans', sans-serif; cursor: none; }
-        body { background-color: var(--bg); color: var(--text); transition: 0.2s; overflow-x: hidden; }
-
-        /* Cursor Custom */
-        #cursor { width: 20px; height: 20px; border: 3px solid var(--text); background: transparent; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: transform 0.1s; }
-
-        /* Nav */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: var(--bg); border-bottom: 5px solid var(--border); position: sticky; top: 0; z-index: 1000; }
-        .logo { font-weight: 900; font-size: 1.8rem; text-transform: uppercase; letter-spacing: -1px; }
-        .nav-controls { display: flex; gap: 15px; }
-        .btn-ui { background: var(--card); border: 4px solid var(--border); color: var(--text); padding: 10px 20px; font-weight: 900; cursor: none; box-shadow: var(--shadow-btn); text-transform: uppercase; }
-        .btn-ui:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px var(--border); }
+        /* Nav Minimalista */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.5rem 10%; border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100;
+        }
+        .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: -1px; }
 
         /* Hero Section */
-        header { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px; padding: 100px 10%; align-items: center; min-height: 80vh; border-bottom: 5px solid var(--border); }
-        h1 { font-size: 5rem; font-weight: 900; line-height: 0.85; text-transform: uppercase; }
-        h1 span { -webkit-text-stroke: 2px var(--border); color: transparent; }
-        .hero-img { width: 100%; border: 8px solid var(--border); box-shadow: var(--shadow); filter: grayscale(100%); }
-
-        /* Sections */
-        section { padding: 100px 10%; border-bottom: 5px solid var(--border); }
-        h2 { font-size: 3.5rem; font-weight: 900; text-transform: uppercase; margin-bottom: 60px; text-decoration: underline; }
-
-        /* Grid */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
-        .card { background: var(--card); border: 5px solid var(--border); padding: 40px; box-shadow: var(--shadow); transition: 0.3s; position: relative; }
-        .card:hover { transform: translate(-5px, -5px); box-shadow: 15px 15px 0px var(--border); }
-        
-        .card h3 { font-size: 2rem; font-weight: 900; margin-bottom: 20px; text-transform: uppercase; background: var(--border); color: var(--card); display: inline-block; padding: 5px 15px; }
-        .skill-list { list-style: none; font-weight: 700; font-size: 1.1rem; }
-        .skill-list li { margin-bottom: 12px; padding-left: 25px; position: relative; }
-        .skill-list li::before { content: "⚡"; position: absolute; left: 0; }
-
-        /* Comunidades */
-        .port-img { width: 100%; height: 250px; object-fit: cover; border: 5px solid var(--border); margin-bottom: 20px; filter: grayscale(100%); transition: 0.3s; }
-        .card:hover .port-img { filter: grayscale(0%); }
-        .tag { display: inline-block; background: var(--border); color: var(--card); padding: 8px 15px; font-weight: 900; font-size: 14px; text-transform: uppercase; margin-bottom: 15px; }
-        
-        .btn-main { display: block; width: 100%; text-align: center; background: var(--text); color: var(--bg); padding: 20px; font-weight: 900; text-decoration: none; border: 5px solid var(--border); box-shadow: var(--shadow-btn); margin-top: 25px; text-transform: uppercase; font-size: 1.2rem; }
-        .btn-main:hover { transform: translate(-3px, -3px); box-shadow: 7px 7px 0px var(--border); }
-
-        footer { text-align: center; padding: 60px; font-weight: 900; text-transform: uppercase; font-size: 1.5rem; letter-spacing: -1px; }
-
-        @media (max-width: 900px) {
-            header { grid-template-columns: 1fr; text-align: center; padding: 50px 5%; }
-            h1 { font-size: 3rem; }
-            h2 { font-size: 2.5rem; }
+        header {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: 100px 10%; min-height: 80vh;
+            background: radial-gradient(circle at 50% -20%, #111, transparent);
         }
+        .capa-img {
+            width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
+            border: 1px solid var(--border); margin-bottom: 2rem;
+            box-shadow: 0 0 30px rgba(255,255,255,0.05);
+        }
+        h1 { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 800; letter-spacing: -0.05em; line-height: 1; margin-bottom: 1.5rem; }
+        h1 span { color: var(--text-dim); }
+        header p { color: var(--text-dim); max-width: 600px; font-size: 1.1rem; }
+
+        /* Grids */
+        section { padding: 100px 10%; border-top: 1px solid var(--border); }
+        h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-dim); margin-bottom: 3rem; text-align: center; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+        
+        .card { background: var(--bg); padding: 3rem; transition: background 0.3s; }
+        .card:hover { background: #050505; }
+        
+        .card h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem; }
+        .card p { color: var(--text-dim); font-size: 0.95rem; }
+
+        /* Portfolio Servidores */
+        .server-img { width: 40px; height: 40px; border-radius: 8px; margin-bottom: 1.5rem; border: 1px solid var(--border); }
+        .tag { font-size: 0.7rem; font-weight: 600; border: 1px solid var(--border); padding: 2px 8px; border-radius: 4px; color: var(--text-dim); margin-bottom: 10px; display: inline-block; }
+        
+        .btn-link {
+            display: inline-block; margin-top: 1.5rem; color: var(--text); text-decoration: none;
+            font-size: 0.9rem; font-weight: 600; border-bottom: 1px solid transparent; transition: 0.3s;
+        }
+        .btn-link:hover { border-bottom-color: #fff; opacity: 0.7; }
+
+        footer { padding: 50px 10%; text-align: center; border-top: 1px solid var(--border); color: #444; font-size: 0.8rem; }
+
+        @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
     <div id="cursor"></div>
+    <div id="cursor-follower"></div>
 
     <nav>
-        <div class="logo">oSein_Port</div>
-        <div class="nav-controls">
-            <button class="btn-ui" onclick="toggleLang()" id="langBtn">EN</button>
-            <button class="btn-ui" onclick="toggleTheme()" id="themeBtn">DARK</button>
-        </div>
+        <div class="logo">OSEIN</div>
+        <div style="font-size: 0.8rem; color: var(--text-dim); font-weight: 600;">STAFF PORTFOLIO</div>
     </nav>
 
     <header>
-        <div>
-            <h1 id="h-title">Expert <span>Staff</span> Solutions.</h1>
-            <p id="h-sub" style="font-weight: 700; margin-top: 30px; font-size: 1.2rem; border-left: 5px solid var(--border); padding-left: 20px;">
-                Especialista em Discord. Organização, segurança e automação bruta para comunidades de elite.
-            </p>
-        </div>
-        <img src="capa.png" class="hero-img" alt="oSein Profile">
+        <img src="capa.png" class="capa-img" alt="oSein">
+        <h1 id="title">Better infrastructure. <br><span>Faster communities.</span></h1>
+        <p id="subtitle">Especialista em moderação técnica e automação para Discord. Focado em segurança e escalabilidade.</p>
     </header>
 
     <section id="habilidades">
-        <h2 id="t-hab">Habilidades</h2>
+        <h2 id="h-hab">Habilidades Técnicas</h2>
         <div class="grid">
             <div class="card">
-                <h3>Estrutura</h3>
-                <ul class="skill-list">
-                    <li>Categorias Organizadas</li>
-                    <li>Permissões de Elite</li>
-                    <li>Layout de Canais Clean</li>
-                </ul>
+                <h3>Estruturação</h3>
+                <p>Criação de hierarquias de cargos, canais intuitivos e permissões blindadas para evitar brechas de segurança.</p>
             </div>
             <div class="card">
                 <h3>Automação</h3>
-                <ul class="skill-list">
-                    <li>Configuração Sapphire</li>
-                    <li>Sistemas de Tickets</li>
-                    <li>Webhooks de Log</li>
-                </ul>
+                <p>Domínio em configuração de bots (Sapphire, etc), webhooks customizados e sistemas de logs automáticos.</p>
             </div>
             <div class="card">
                 <h3>Segurança</h3>
-                <ul class="skill-list">
-                    <li>Anti-Raid Ativo</li>
-                    <li>Verificação Avançada</li>
-                    <li>Gestão de Crises</li>
-                </ul>
+                <p>Proteção contra raids, sistemas de verificação por captcha e gestão de crises em comunidades de grande escala.</p>
             </div>
         </div>
     </section>
 
     <section id="portfolio">
-        <h2 id="t-port">Comunidades</h2>
+        <h2 id="h-port">Comunidades Ativas</h2>
         <div class="grid">
             <div class="card">
-                <img src="crash.png" class="port-img">
-                <span class="tag">Moderador</span>
+                <img src="crash.png" class="server-img">
+                <span class="tag">MODERADOR</span>
                 <h3>Anime Crash</h3>
-                <a href="https://discord.gg/K5gSxMUsm" target="_blank" class="btn-main b-join">Acessar</a>
+                <p>Resolução de conflitos e suporte via tickets.</p>
+                <a href="https://discord.gg/K5gSxMUsm" target="_blank" class="btn-link">Join Server →</a>
             </div>
             <div class="card">
-                <img src="brawl.png" class="port-img">
-                <span class="tag">Trial Mod</span>
+                <img src="brawl.png" class="server-img">
+                <span class="tag">TRIAL MOD</span>
                 <h3>Anime Brawl</h3>
-                <a href="https://discord.gg/xCN3kvCwzG" target="_blank" class="btn-main b-join">Acessar</a>
+                <p>Auxílio na organização técnica e regras.</p>
+                <a href="https://discord.gg/xCN3kvCwzG" target="_blank" class="btn-link">Join Server →</a>
             </div>
             <div class="card">
-                <img src="all.png" class="port-img">
-                <span class="tag">Moderador</span>
+                <img src="all.png" class="server-img">
+                <span class="tag">MODERADOR</span>
                 <h3>Anime All</h3>
-                <a href="https://discord.com/invite/CkVnGNm3Ct" target="_blank" class="btn-main b-join">Acessar</a>
+                <p>Monitoramento preventivo e suporte geral.</p>
+                <a href="https://discord.com/invite/CkVnGNm3Ct" target="_blank" class="btn-link">Join Server →</a>
             </div>
             <div class="card">
-                <img src="fallen.png" class="port-img">
-                <span class="tag">Moderador</span>
+                <img src="fallen.png" class="server-img">
+                <span class="tag">MODERADOR</span>
                 <h3>Anime Fallen</h3>
-                <a href="https://discord.gg/xYMbWT8hby" target="_blank" class="btn-main b-join">Acessar</a>
+                <p>Manutenção da ordem e infraestrutura.</p>
+                <a href="https://discord.gg/xYMbWT8hby" target="_blank" class="btn-link">Join Server →</a>
             </div>
         </div>
     </section>
 
-    <footer id="foot">© 2026 oSein • No Mercy Performance</footer>
+    <footer>
+        © 2026 OSEIN. POWERED BY CODE.
+    </footer>
 
     <script>
-        const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-
-        function toggleTheme() {
-            const body = document.body;
-            const isDark = body.getAttribute('data-theme') === 'dark';
-            body.setAttribute('data-theme', isDark ? 'light' : 'dark');
-            document.getElementById('themeBtn').innerText = isDark ? 'DARK' : 'LIGHT';
-        }
-
-        let lang = 'pt';
-        const texts = {
-            pt: { title: "Expert <span>Staff</span> Solutions.", sub: "Especialista em Discord. Organização, segurança e automação bruta para comunidades de elite.", hab: "Habilidades", port: "Comunidades", join: "Acessar", foot: "© 2026 oSein • No Mercy Performance" },
-            en: { title: "Expert <span>Staff</span> Solutions.", sub: "Discord Specialist. Organization, security, and raw automation for elite communities.", hab: "Skills", port: "Communities", join: "Join", foot: "© 2026 oSein • No Mercy Performance" }
-        };
-
-        function toggleLang() {
-            lang = lang === 'pt' ? 'en' : 'pt';
-            document.getElementById('langBtn').innerText = lang === 'pt' ? 'EN' : 'PT';
-            document.getElementById('h-title').innerHTML = texts[lang].title;
-            document.getElementById('h-sub').innerText = texts[lang].sub;
-            document.getElementById('t-hab').innerText = texts[lang].hab;
-            document.getElementById('t-port').innerText = texts[lang].port;
-            document.getElementById('foot').innerText = texts[lang].foot;
-            document.querySelectorAll('.b-join').forEach(b => b.innerText = texts[lang].join);
-        }
-    </script>
-</body>
-</html>
+        //
