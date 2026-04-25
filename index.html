@@ -3,85 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>oSein | Staff Portfolio</title>
+    <title>oSein | High Performance Staff</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #000; --text: #fff; --text-dim: #888; --border: rgba(255, 255, 255, 0.1); }
+        :root {
+            --bg: #000000;
+            --text: #ffffff;
+            --text-dim: #888888;
+            --border: rgba(255, 255, 255, 0.1);
+            --blue: #0070f3;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; cursor: none; }
-        body { background-color: var(--bg); color: var(--text); overflow-x: hidden; }
+        body { background-color: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
-        /* Cursor Blindado */
-        #cursor, #cursor-follower { position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: transform 0.1s ease-out; }
-        #cursor { width: 8px; height: 8px; background: #fff; }
-        #cursor-follower { width: 30px; height: 30px; border: 1px solid rgba(255,255,255,0.3); }
+        /* Cursor Vercel Style (O Top que você gostou) */
+        #cursor {
+            width: 8px; height: 8px; background: #fff; border-radius: 50%;
+            position: fixed; pointer-events: none; z-index: 10000;
+            transition: transform 0.1s ease-out; transform: translate(-50%, -50%);
+        }
+        #cursor-follower {
+            width: 30px; height: 30px; border: 1px solid rgba(255,255,255,0.3); border-radius: 50%;
+            position: fixed; pointer-events: none; z-index: 9999;
+            transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1); transform: translate(-50%, -50%);
+        }
 
-        /* Nav */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 10%; border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
-        .logo { font-weight: 800; font-size: 1.2rem; }
+        /* Nav Minimalista */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 10%; border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100;
+            background: rgba(0,0,0,0.8);
+        }
+        .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: -1px; }
 
-        /* Hero */
-        header { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 100px 10%; min-height: 80vh; background: radial-gradient(circle at 50% -20%, #111, transparent); }
-        .capa-container { width: 120px; height: 120px; border-radius: 50%; border: 1px solid var(--border); margin-bottom: 2rem; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #080808; }
-        .capa-img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); }
-        h1 { font-size: clamp(2rem, 8vw, 4.5rem); font-weight: 800; letter-spacing: -0.05em; line-height: 1; margin-bottom: 1.5rem; }
+        /* Hero Section com sua Foto Embutida */
+        header {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: 120px 10% 80px; min-height: 80vh;
+            background: radial-gradient(circle at 50% 0%, #111, transparent);
+        }
+        .capa-img {
+            width: 140px; height: 140px; border-radius: 50%; object-fit: cover;
+            border: 1px solid var(--border); margin-bottom: 2.5rem;
+            box-shadow: 0 0 40px rgba(255,255,255,0.03);
+            filter: grayscale(100%); transition: 0.5s;
+        }
+        .capa-img:hover { filter: grayscale(0%); transform: scale(1.05); }
+
+        h1 { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 800; letter-spacing: -0.05em; line-height: 0.95; margin-bottom: 1.5rem; }
         h1 span { color: var(--text-dim); }
-        header p { color: var(--text-dim); max-width: 600px; font-size: 1.1rem; }
+        header p { color: var(--text-dim); max-width: 600px; font-size: 1.15rem; font-weight: 300; }
 
-        /* Grids */
+        /* Grid Vercel de 1px (As linhas de grade perfeitas) */
         section { padding: 100px 10%; border-top: 1px solid var(--border); }
-        h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-dim); margin-bottom: 3rem; text-align: center; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
-        .card { background: var(--bg); padding: 3rem; transition: background 0.3s; }
-        .card:hover { background: #050505; }
-        .card h3 { font-size: 1.2rem; margin-bottom: 1rem; }
-        .card p { color: var(--text-dim); font-size: 0.9rem; }
+        h2 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.25em; color: var(--text-dim); margin-bottom: 3.5rem; text-align: center; }
 
-        /* Portfolio */
-        .server-img-container { width: 40px; height: 40px; border-radius: 8px; margin-bottom: 1rem; border: 1px solid var(--border); overflow: hidden; display: flex; align-items: center; justify-content: center; background: #080808; }
-        .server-img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.3s; }
-        .card:hover .server-img { filter: grayscale(0%); }
-        .tag { font-size: 0.7rem; font-weight: 600; border: 1px solid var(--border); padding: 2px 8px; border-radius: 4px; color: var(--text-dim); margin-bottom: 10px; display: inline-block; }
-        .btn-link { display: inline-block; margin-top: 1.5rem; color: #fff; text-decoration: none; font-size: 0.9rem; font-weight: 600; border-bottom: 1px solid transparent; }
-        .btn-link:hover { border-bottom-color: #fff; opacity: 0.7; }
-        footer { padding: 50px 10%; text-align: center; border-top: 1px solid var(--border); color: #444; font-size: 0.8rem; }
+        .grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1px; background: var(--border); border: 1px solid var(--border);
+        }
+        
+        .card { background: var(--bg); padding: 3.5rem; transition: background 0.3s; }
+        .card:hover { background: #050505; }
+        
+        .card h3 { font-size: 1.3rem; font-weight: 600; margin-bottom: 1.2rem; }
+        .card p { color: var(--text-dim); font-size: 0.95rem; font-weight: 300; line-height: 1.7; }
+
+        /* Portfolio Servidores (Com Fotos Embutidas) */
+        .server-img { width: 50px; height: 50px; border-radius: 10px; margin-bottom: 1.5rem; border: 1px solid var(--border); transition: 0.3s; filter: grayscale(100%); }
+        .com-card:hover .server-img { filter: grayscale(0%); transform: scale(1.1); }
+        
+        .role-tag { font-size: 0.65rem; font-weight: 800; color: var(--blue); letter-spacing: 1px; margin-bottom: 8px; display: block; }
+        
+        .com-link {
+            display: inline-block; margin-top: 1.5rem; color: var(--text); text-decoration: none;
+            font-size: 0.9rem; font-weight: 600; border-bottom: 1px solid transparent; transition: 0.3s;
+        }
+        .com-link:hover { border-bottom-color: #fff; }
+
+        footer { padding: 80px 10%; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; font-weight: 600; }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2.8rem; }
+            section { padding: 80px 5%; }
+        }
     </style>
 </head>
 <body>
-    <div id="cursor"></div><div id="cursor-follower"></div>
-    <nav><div class="logo">OSEIN</div><div style="font-size: 0.8rem; color: var(--text-dim);">STAFF PORTFOLIO</div></nav>
+
+    <div id="cursor"></div>
+    <div id="cursor-follower"></div>
+
+    <nav>
+        <div class="logo">OSEIN</div>
+        <div style="font-size: 0.75rem; color: var(--text-dim); font-weight: 600; letter-spacing: 1px;">HIGH PERFORMANCE STAFF</div>
+    </nav>
+
     <header>
-        <div class="capa-container"><img src="OSEIN STAFF PORTFOLIO FINAL FINAL/osein staff final/capa.png" class="capa-img" alt="oSein Staff"></div>
-        <h1>Performance infrastructure. <br><span>Faster communities.</span></h1>
-        <p>Especialista em moderação técnica e automação no Discord. Segurança e ordem em grande escala.</p>
+        <img src="https://assets.superyeti.com/capa.png" class="capa-img" alt="oSein Staff">
+        <h1 id="hero-title">High Performance. <br><span>Faster communities.</span></h1>
+        <p id="hero-sub">Especialista em infraestrutura técnica e moderação avançada no Discord. Automação brute-force e segurança blindada para comunidades de elite.</p>
     </header>
+
     <section id="habilidades">
         <h2>Habilidades Técnicas</h2>
         <div class="grid">
-            <div class="card"><h3>Estruturação</h3><p>Organização de hierarquias de cargos e canais limpos.</p></div>
-            <div class="card"><h3>Automação</h3><p>Configuração de bots e sistemas de logs automáticos.</p></div>
-            <div class="card"><h3>Segurança</h3><p>Anti-Raid ativo e verificação avançada.</p></div>
+            <div class="card">
+                <h3>Estruturação</h3>
+                <p>Arquitetura de hierarquias de cargos, canais limpos e permissões à prova de falhas para operação otimizada.</p>
+            </div>
+            <div class="card">
+                <h3>Automação</h3>
+                <p>Domínio técnico em Sapphire, webhooks e sistemas de logs customizados para monitoramento 24/7 sem erros.</p>
+            </div>
+            <div class="card">
+                <h3>Segurança</h3>
+                <p>Proteção ativa Anti-Raid, sistemas de verificação por captcha e gestão profissional de crises em grande escala.</p>
+            </div>
         </div>
     </section>
+
     <section id="portfolio">
         <h2>Comunidades</h2>
         <div class="grid">
-            <div class="card"><div class="server-img-container"><img src="OSEIN STAFF PORTFOLIO FINAL FINAL/osein staff final/crash.png" class="server-img"></div><span class="tag">MOD</span><h3>Anime Crash</h3><a href="https://discord.gg/K5gSxMUsm" target="_blank" class="btn-link">Join Server →</a></div>
-            <div class="card"><div class="server-img-container"><img src="OSEIN STAFF PORTFOLIO FINAL FINAL/osein staff final/brawl.png" class="server-img"></div><span class="tag">MOD</span><h3>Anime Brawl</h3><a href="https://discord.gg/xCN3kvCwzG" target="_blank" class="btn-link">Join Server →</a></div>
-            <div class="card"><div class="server-img-container"><img src="OSEIN STAFF PORTFOLIO FINAL FINAL/osein staff final/all.png" class="server-img"></div><span class="tag">MOD</span><h3>Anime All</h3><a href="https://discord.com/invite/CkVnGNm3Ct" target="_blank" class="btn-link">Join Server →</a></div>
-            <div class="card"><div class="server-img-container"><img src="OSEIN STAFF PORTFOLIO FINAL FINAL/osein staff final/fallen.png" class="server-img"></div><span class="tag">MOD</span><h3>Anime Fallen</h3><a href="https://discord.gg/xYMbWT8hby" target="_blank" class="btn-link">Join Server →</a></div>
-        </div>
-    </section>
-    <footer>© 2026 OSEIN • POWERED BY HIGH PERFORMANCE SYSTEMS</footer>
-    <script>
-        const cursor = document.getElementById('cursor'); const follower = document.getElementById('cursor-follower');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
-            setTimeout(() => { follower.style.left = e.clientX + 'px'; follower.style.top = e.clientY + 'px'; }, 50);
-        });
-        document.querySelectorAll('a, .card').forEach(link => {
-            link.addEventListener('mouseover', () => follower.style.transform = 'translate(-50%, -50%) scale(2)');
-            link.addEventListener('mouseout', () => follower.style.transform = 'translate(-50%, -50%) scale(1)');
-        });
-    </script>
-</body>
-</html>
+            <div class="card com-card">
+                <img src="https://assets.superyeti.com/crash.png" class="server-img" alt="Crash">
+                <span class="role-tag">MODERADOR</span>
+                <h3>Anime Crash</h3>
+                <p>Resolução ativa de conflitos e suporte via tickets.</p>
+                <a href="https://discord.gg/K5gSxMUsm" target="_blank" class="com-link">Join Server →</a>
+            </div>
+            <div class="card com-card">
+                <img src="https://assets.superyeti.com/brawl.png" class="server-img" alt="Brawl">
+                <span class="role-tag">TRIAL MOD</span>
+                <h3>Anime Brawl</h3>
+                <p>Auxílio na estruturação técnica de regras e canais.</p>
+                <a href="https://discord.gg/xCN3kvCwzG" target="_blank" class="com-link">Join Server →</a>
+            </div>
+            <div class="card com-card">
+                <img src="https://assets.superyeti.com/all.png" class="server-img" alt="All">
+                <span class="role-tag">MODERADOR</span>
+                <h3>Anime All</h3>
+                <p>Monitoramento preventivo e suporte geral da
