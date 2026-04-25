@@ -4,7 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>oSein | Gestão de Comunidades</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* TUDO EM UM SÓ LUGAR PARA NÃO DAR ERRO */
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { background-color: #000; color: #fff; font-family: 'Inter', -apple-system, sans-serif; line-height: 1.6; }
+
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; position: sticky; top: 0; background: rgba(0,0,0,0.9); border-bottom: 1px solid #111; z-index: 100; }
+        .logo { font-weight: bold; font-size: 1.5rem; color: #00aaff; }
+        nav ul { display: flex; list-style: none; gap: 20px; }
+        nav ul li a { color: #888; text-decoration: none; font-size: 14px; transition: 0.3s; }
+        nav ul li a:hover { color: #fff; }
+        .nav-btn { border: 1px solid #fff; color: #fff; padding: 8px 16px; border-radius: 50px; text-decoration: none; font-size: 14px; }
+
+        header { height: 70vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 10%; }
+        .badge { background: #111; padding: 5px 15px; border-radius: 50px; font-size: 12px; color: #00aaff; border: 1px solid #222; }
+        h1 { font-size: 3rem; margin: 20px 0; font-weight: 800; }
+        h1 span { color: #00aaff; }
+        header p { color: #888; max-width: 600px; margin: 0 auto; }
+
+        section { padding: 80px 8%; }
+        h2 { text-align: center; margin-bottom: 40px; font-size: 2rem; }
+
+        .service-grid, .port-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .s-card, .p-card { background: #050505; border: 1px solid #111; padding: 35px; border-radius: 20px; transition: 0.3s; }
+        .s-card:hover, .p-card:hover { border-color: #00aaff; transform: translateY(-5px); }
+        
+        .tag { background: #00aaff22; color: #00aaff; padding: 4px 12px; border-radius: 6px; font-size: 12px; display: inline-block; margin: 15px 0; font-weight: bold; }
+        .btn-servidor { display: block; width: 100%; text-align: center; background: #111; color: #fff; padding: 12px; border-radius: 10px; text-decoration: none; margin-top: 20px; font-size: 14px; transition: 0.3s; }
+        .btn-servidor:hover { background: #00aaff22; color: #00aaff; }
+
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+        .tech-tags span { border: 1px solid #222; padding: 12px 25px; border-radius: 12px; background: #080808; font-size: 14px; }
+
+        footer { padding: 80px 8%; text-align: center; border-top: 1px solid #111; }
+        .footer-btn { background: #00aaff; color: #fff; padding: 18px 40px; border-radius: 15px; text-decoration: none; display: inline-block; margin-bottom: 30px; font-weight: bold; font-size: 1.1rem; }
+        footer p { color: #444; font-size: 12px; }
+    </style>
 </head>
 <body>
     <nav>
@@ -13,7 +48,6 @@
             <li><a href="#hero">Início</a></li>
             <li><a href="#services">Serviços</a></li>
             <li><a href="#portfolio">Comunidades</a></li>
-            <li><a href="#tech">Habilidades</a></li>
         </ul>
         <a href="https://discord.com/users/1077000858342006867" class="nav-btn">Falar comigo</a>
     </nav>
@@ -28,31 +62,26 @@
 
     <section id="services">
         <div class="service-grid">
-            <div class="s-card"><i>🛡️</i><h3>Segurança</h3><p>Proteção contra ataques e sistemas de logs.</p></div>
-            <div class="s-card"><i>🤖</i><h3>Bots</h3><p>Configuração de Sapphire e automações personalizadas.</p></div>
-            <div class="s-card"><i>📐</i><h3>Visual</h3><p>Estrutura de canais limpa e intuitiva.</p></div>
-            <div class="s-card"><i>🤝</i><h3>Staff</h3><p>Gestão de cargos e suporte para a equipe.</p></div>
+            <div class="s-card"><h3>🛡️ Segurança</h3><p>Proteção ativa contra ataques, raids e sistemas de logs avançados.</p></div>
+            <div class="s-card"><h3>🤖 Configuração de Bots</h3><p>Ajuste fino de Sapphire, Tickets e automação de cargos.</p></div>
+            <div class="s-card"><h3>📐 Organização Visual</h3><p>Canais limpos, categorias intuitivas e regras claras.</p></div>
         </div>
     </section>
 
     <section id="portfolio">
         <h2>Comunidades que oSein cuida</h2>
         <div class="port-grid">
-            <div class="p-card"><h3>Anime All</h3><span class="tag">Moderador</span><p>Monitoramento e suporte ativo.</p></div>
-            <div class="p-card"><h3>Anime Crash</h3><span class="tag">Moderador</span><p>Gestão de conflitos e suporte staff.</p></div>
-            <div class="p-card"><h3>Anime Brawl</h3><span class="tag">Trial Moderator</span><p>Desenvolvimento e moderação.</p></div>
-            <div class="p-card"><h3>Anime Fallen</h3><span class="tag">Moderador</span><p>Manutenção da ordem e regras.</p></div>
+            <div class="p-card"><h3>Anime All</h3><span class="tag">MODERADOR</span><p>Sou ativo no monitoramento e ajudo no suporte a tickets.</p><a href="#" class="btn-servidor">Acessar Servidor</a></div>
+            <div class="p-card"><h3>Anime Crash</h3><span class="tag">MODERADOR</span><p>Auxílio a equipe da staff a lidar com conflitos.</p><a href="#" class="btn-servidor">Acessar Servidor</a></div>
+            <div class="p-card"><h3>Anime Brawl</h3><span class="tag">TRIAL MODERADOR</span><p>Auxiliando a equipe no desenvolvimento do servidor.</p><a href="#" class="btn-servidor">Acessar Servidor</a></div>
         </div>
     </section>
 
     <section id="tech">
-        <div class="tech-container">
-            <h2>Habilidades Técnicas</h2>
-            <div class="tech-tags">
-                <span>Organização de Cargos</span><span>Moderação Automática</span>
-                <span>Sistemas de Verificação</span><span>Webhooks</span>
-                <span>Roblox Integration</span><span>Resolução de Conflitos</span>
-            </div>
+        <h2>Minhas Habilidades</h2>
+        <div class="tech-tags">
+            <span>Organização de Cargos</span><span>Moderação Automática</span><span>Sistemas de Verificação</span>
+            <span>Webhooks Customizados</span><span>Resolução de Conflitos</span><span>Ajuste Fino de Bots</span>
         </div>
     </section>
 
