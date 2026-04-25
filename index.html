@@ -4,160 +4,183 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>oSein | Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #000000;
-            --text: #ffffff;
-            --card-bg: #070707;
-            --border: #161616;
-            --accent: #00aaff;
-            --nav-bg: rgba(0,0,0,0.8);
+            --bg: #fff; --text: #000; --card: #fff; --border: #000;
+            --shadow: 10px 10px 0px #000;
+            --shadow-btn: 4px 4px 0px #000;
         }
 
-        [data-theme="light"] {
-            --bg: #ffffff;
-            --text: #000000;
-            --card-bg: #f9f9f9;
-            --border: #e0e0e0;
-            --nav-bg: rgba(255,255,255,0.8);
+        [data-theme="dark"] {
+            --bg: #000; --text: #fff; --card: #000; --border: #fff;
+            --shadow: 10px 10px 0px #fff;
+            --shadow-btn: 4px 4px 0px #fff;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; transition: background 0.3s, color 0.3s; }
-        body { background-color: var(--bg); color: var(--text); overflow-x: hidden; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Public Sans', sans-serif; cursor: none; }
+        body { background-color: var(--bg); color: var(--text); transition: 0.2s; overflow-x: hidden; }
 
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 10%; position: fixed; width: 100%; top: 0; background: var(--nav-bg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); z-index: 1000; }
-        .logo { font-weight: 800; font-size: 1.2rem; }
+        /* Cursor Custom */
+        #cursor { width: 20px; height: 20px; border: 3px solid var(--text); background: transparent; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: transform 0.1s; }
+
+        /* Nav */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: var(--bg); border-bottom: 5px solid var(--border); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-weight: 900; font-size: 1.8rem; text-transform: uppercase; letter-spacing: -1px; }
+        .nav-controls { display: flex; gap: 15px; }
+        .btn-ui { background: var(--card); border: 4px solid var(--border); color: var(--text); padding: 10px 20px; font-weight: 900; cursor: none; box-shadow: var(--shadow-btn); text-transform: uppercase; }
+        .btn-ui:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px var(--border); }
+
+        /* Hero Section */
+        header { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px; padding: 100px 10%; align-items: center; min-height: 80vh; border-bottom: 5px solid var(--border); }
+        h1 { font-size: 5rem; font-weight: 900; line-height: 0.85; text-transform: uppercase; }
+        h1 span { -webkit-text-stroke: 2px var(--border); color: transparent; }
+        .hero-img { width: 100%; border: 8px solid var(--border); box-shadow: var(--shadow); filter: grayscale(100%); }
+
+        /* Sections */
+        section { padding: 100px 10%; border-bottom: 5px solid var(--border); }
+        h2 { font-size: 3.5rem; font-weight: 900; text-transform: uppercase; margin-bottom: 60px; text-decoration: underline; }
+
+        /* Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
+        .card { background: var(--card); border: 5px solid var(--border); padding: 40px; box-shadow: var(--shadow); transition: 0.3s; position: relative; }
+        .card:hover { transform: translate(-5px, -5px); box-shadow: 15px 15px 0px var(--border); }
         
-        .nav-controls { display: flex; gap: 10px; align-items: center; }
-        .ctrl-btn { background: var(--card-bg); border: 1px solid var(--border); color: var(--text); padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 11px; font-weight: 700; text-transform: uppercase; }
-        .ctrl-btn:hover { border-color: var(--accent); }
+        .card h3 { font-size: 2rem; font-weight: 900; margin-bottom: 20px; text-transform: uppercase; background: var(--border); color: var(--card); display: inline-block; padding: 5px 15px; }
+        .skill-list { list-style: none; font-weight: 700; font-size: 1.1rem; }
+        .skill-list li { margin-bottom: 12px; padding-left: 25px; position: relative; }
+        .skill-list li::before { content: "⚡"; position: absolute; left: 0; }
 
-        header { height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 10%; }
-        h1 { font-size: 3rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 15px; line-height: 1.1; }
-        h1 span { color: var(--accent); }
-        p.hero-desc { color: #888; max-width: 500px; font-size: 1.1rem; }
-
-        section { padding: 40px 10% 100px; }
-        h2 { text-align: center; margin-bottom: 40px; font-weight: 800; font-size: 1.8rem; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        /* Comunidades */
+        .port-img { width: 100%; height: 250px; object-fit: cover; border: 5px solid var(--border); margin-bottom: 20px; filter: grayscale(100%); transition: 0.3s; }
+        .card:hover .port-img { filter: grayscale(0%); }
+        .tag { display: inline-block; background: var(--border); color: var(--card); padding: 8px 15px; font-weight: 900; font-size: 14px; text-transform: uppercase; margin-bottom: 15px; }
         
-        .card { background: var(--card-bg); border: 1px solid var(--border); padding: 30px; border-radius: 24px; transition: 0.4s; }
-        .card:hover { transform: translateY(-10px); border-color: var(--accent); }
-        .tag { font-size: 10px; font-weight: 800; color: var(--accent); margin-bottom: 10px; display: block; letter-spacing: 1px; }
-        .card h3 { margin-bottom: 10px; font-weight: 700; }
-        .card p { font-size: 14px; color: #777; margin-bottom: 20px; min-height: 45px; }
-        
-        .btn-link { display: block; padding: 12px; background: var(--text); color: var(--bg); text-decoration: none; border-radius: 12px; font-weight: 800; font-size: 13px; text-align: center; transition: 0.3s; }
-        .btn-link:hover { opacity: 0.8; }
+        .btn-main { display: block; width: 100%; text-align: center; background: var(--text); color: var(--bg); padding: 20px; font-weight: 900; text-decoration: none; border: 5px solid var(--border); box-shadow: var(--shadow-btn); margin-top: 25px; text-transform: uppercase; font-size: 1.2rem; }
+        .btn-main:hover { transform: translate(-3px, -3px); box-shadow: 7px 7px 0px var(--border); }
 
-        footer { padding: 60px 10%; text-align: center; border-top: 1px solid var(--border); font-size: 12px; color: #444; }
+        footer { text-align: center; padding: 60px; font-weight: 900; text-transform: uppercase; font-size: 1.5rem; letter-spacing: -1px; }
+
+        @media (max-width: 900px) {
+            header { grid-template-columns: 1fr; text-align: center; padding: 50px 5%; }
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2.5rem; }
+        }
     </style>
 </head>
 <body>
 
+    <div id="cursor"></div>
+
     <nav>
-        <div class="logo">oSein</div>
+        <div class="logo">oSein_Port</div>
         <div class="nav-controls">
-            <button class="ctrl-btn" onclick="toggleLanguage()" id="langBtn">EN</button>
-            <button class="ctrl-btn" onclick="toggleTheme()" id="themeBtn">☀️</button>
+            <button class="btn-ui" onclick="toggleLang()" id="langBtn">EN</button>
+            <button class="btn-ui" onclick="toggleTheme()" id="themeBtn">DARK</button>
         </div>
     </nav>
 
     <header>
-        <h1 id="title">Cuidado para sua <span>comunidade.</span></h1>
-        <p class="hero-desc" id="subtitle">Especialista em infraestrutura, moderação e segurança para servidores de Discord.</p>
+        <div>
+            <h1 id="h-title">Expert <span>Staff</span> Solutions.</h1>
+            <p id="h-sub" style="font-weight: 700; margin-top: 30px; font-size: 1.2rem; border-left: 5px solid var(--border); padding-left: 20px;">
+                Especialista em Discord. Organização, segurança e automação bruta para comunidades de elite.
+            </p>
+        </div>
+        <img src="capa.png" class="hero-img" alt="oSein Profile">
     </header>
 
-    <section id="portfolio">
-        <h2 id="section-title">Comunidades</h2>
+    <section id="habilidades">
+        <h2 id="t-hab">Habilidades</h2>
         <div class="grid">
             <div class="card">
-                <span class="tag">MODERADOR</span>
-                <h3>Anime All</h3>
-                <p id="desc1">Monitoramento preventivo e suporte ativo via tickets.</p>
-                <a href="https://discord.com/invite/CkVnGNm3Ct" target="_blank" class="btn-link" id="btn1">Acessar Servidor</a>
+                <h3>Estrutura</h3>
+                <ul class="skill-list">
+                    <li>Categorias Organizadas</li>
+                    <li>Permissões de Elite</li>
+                    <li>Layout de Canais Clean</li>
+                </ul>
             </div>
             <div class="card">
-                <span class="tag">MODERADOR</span>
-                <h3>Anime Crash</h3>
-                <p id="desc2">Gestão de equipe staff e resolução de conflitos internos.</p>
-                <a href="https://discord.gg/K5gSxMUsm" target="_blank" class="btn-link" id="btn2">Acessar Servidor</a>
+                <h3>Automação</h3>
+                <ul class="skill-list">
+                    <li>Configuração Sapphire</li>
+                    <li>Sistemas de Tickets</li>
+                    <li>Webhooks de Log</li>
+                </ul>
             </div>
             <div class="card">
-                <span class="tag">TRIAL MOD</span>
-                <h3>Anime Brawl</h3>
-                <p id="desc3">Auxílio na estruturação técnica e organização de canais.</p>
-                <a href="https://discord.gg/xCN3kvCwzG" target="_blank" class="btn-link" id="btn3">Acessar Servidor</a>
-            </div>
-            <div class="card">
-                <span class="tag">MODERADOR</span>
-                <h3>Anime Fallen</h3>
-                <p id="desc4">Manutenção da ordem e aplicação das regras da comunidade.</p>
-                <a href="https://discord.gg/xYMbWT8hby" target="_blank" class="btn-link" id="btn4">Acessar Servidor</a>
+                <h3>Segurança</h3>
+                <ul class="skill-list">
+                    <li>Anti-Raid Ativo</li>
+                    <li>Verificação Avançada</li>
+                    <li>Gestão de Crises</li>
+                </ul>
             </div>
         </div>
     </section>
 
-    <footer id="footer-text">
-        © 2026 oSein • Todos os direitos reservados.
-    </footer>
+    <section id="portfolio">
+        <h2 id="t-port">Comunidades</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="crash.png" class="port-img">
+                <span class="tag">Moderador</span>
+                <h3>Anime Crash</h3>
+                <a href="https://discord.gg/K5gSxMUsm" target="_blank" class="btn-main b-join">Acessar</a>
+            </div>
+            <div class="card">
+                <img src="brawl.png" class="port-img">
+                <span class="tag">Trial Mod</span>
+                <h3>Anime Brawl</h3>
+                <a href="https://discord.gg/xCN3kvCwzG" target="_blank" class="btn-main b-join">Acessar</a>
+            </div>
+            <div class="card">
+                <img src="all.png" class="port-img">
+                <span class="tag">Moderador</span>
+                <h3>Anime All</h3>
+                <a href="https://discord.com/invite/CkVnGNm3Ct" target="_blank" class="btn-main b-join">Acessar</a>
+            </div>
+            <div class="card">
+                <img src="fallen.png" class="port-img">
+                <span class="tag">Moderador</span>
+                <h3>Anime Fallen</h3>
+                <a href="https://discord.gg/xYMbWT8hby" target="_blank" class="btn-main b-join">Acessar</a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="foot">© 2026 oSein • No Mercy Performance</footer>
 
     <script>
-        let currentLang = 'pt';
-        const translations = {
-            pt: {
-                title: "Cuidado para sua <span>comunidade.</span>",
-                subtitle: "Especialista em infraestrutura, moderação e segurança para servidores de Discord.",
-                section: "Comunidades",
-                d1: "Monitoramento preventivo e suporte ativo via tickets.",
-                d2: "Gestão de equipe staff e resolução de conflitos internos.",
-                d3: "Auxílio na estruturação técnica e organização de canais.",
-                d4: "Manutenção da ordem e aplicação das regras da comunidade.",
-                btn: "Acessar Servidor",
-                footer: "© 2026 oSein • Todos os direitos reservados."
-            },
-            en: {
-                title: "Care for your <span>community.</span>",
-                subtitle: "Specialist in infrastructure, moderation, and security for Discord servers.",
-                section: "Communities",
-                d1: "Preventive monitoring and active ticket support.",
-                d2: "Staff team management and internal conflict resolution.",
-                d3: "Assisting in technical structuring and channel organization.",
-                d4: "Maintaining order and enforcing community rules.",
-                btn: "Join Server",
-                footer: "© 2026 oSein • All rights reserved."
-            }
-        };
-
-        function toggleLanguage() {
-            currentLang = currentLang === 'pt' ? 'en' : 'pt';
-            document.getElementById('langBtn').innerText = currentLang === 'pt' ? 'EN' : 'PT';
-            
-            document.getElementById('title').innerHTML = translations[currentLang].title;
-            document.getElementById('subtitle').innerText = translations[currentLang].subtitle;
-            document.getElementById('section-title').innerText = translations[currentLang].section;
-            document.getElementById('desc1').innerText = translations[currentLang].d1;
-            document.getElementById('desc2').innerText = translations[currentLang].d2;
-            document.getElementById('desc3').innerText = translations[currentLang].d3;
-            document.getElementById('desc4').innerText = translations[currentLang].d4;
-            
-            const buttons = ['btn1', 'btn2', 'btn3', 'btn4'];
-            buttons.forEach(id => document.getElementById(id).innerText = translations[currentLang].btn);
-            
-            document.getElementById('footer-text').innerText = translations[currentLang].footer;
-        }
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
 
         function toggleTheme() {
             const body = document.body;
-            const btn = document.getElementById('themeBtn');
-            if (body.getAttribute('data-theme') === 'light') {
-                body.removeAttribute('data-theme');
-                btn.innerText = "☀️";
-            } else {
-                body.setAttribute('data-theme', 'light');
-                btn.innerText = "🌙";
-            }
+            const isDark = body.getAttribute('data-theme') === 'dark';
+            body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            document.getElementById('themeBtn').innerText = isDark ? 'DARK' : 'LIGHT';
+        }
+
+        let lang = 'pt';
+        const texts = {
+            pt: { title: "Expert <span>Staff</span> Solutions.", sub: "Especialista em Discord. Organização, segurança e automação bruta para comunidades de elite.", hab: "Habilidades", port: "Comunidades", join: "Acessar", foot: "© 2026 oSein • No Mercy Performance" },
+            en: { title: "Expert <span>Staff</span> Solutions.", sub: "Discord Specialist. Organization, security, and raw automation for elite communities.", hab: "Skills", port: "Communities", join: "Join", foot: "© 2026 oSein • No Mercy Performance" }
+        };
+
+        function toggleLang() {
+            lang = lang === 'pt' ? 'en' : 'pt';
+            document.getElementById('langBtn').innerText = lang === 'pt' ? 'EN' : 'PT';
+            document.getElementById('h-title').innerHTML = texts[lang].title;
+            document.getElementById('h-sub').innerText = texts[lang].sub;
+            document.getElementById('t-hab').innerText = texts[lang].hab;
+            document.getElementById('t-port').innerText = texts[lang].port;
+            document.getElementById('foot').innerText = texts[lang].foot;
+            document.querySelectorAll('.b-join').forEach(b => b.innerText = texts[lang].join);
         }
     </script>
 </body>
