@@ -3,148 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>oSein | High Performance Staff</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>oSein | Staff Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #000000;
-            --text: #ffffff;
-            --text-dim: #888888;
-            --border: rgba(255, 255, 255, 0.1);
-            --blue: #0070f3;
-        }
-
+        :root { --bg: #000; --text: #fff; --dim: #888; --border: rgba(255,255,255,0.1); }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; cursor: none; }
-        body { background-color: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        body { background: var(--bg); color: var(--text); overflow-x: hidden; }
 
-        /* Cursor Vercel Style (O Top que você gostou) */
-        #cursor {
-            width: 8px; height: 8px; background: #fff; border-radius: 50%;
-            position: fixed; pointer-events: none; z-index: 10000;
-            transition: transform 0.1s ease-out; transform: translate(-50%, -50%);
-        }
-        #cursor-follower {
-            width: 30px; height: 30px; border: 1px solid rgba(255,255,255,0.3); border-radius: 50%;
-            position: fixed; pointer-events: none; z-index: 9999;
-            transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1); transform: translate(-50%, -50%);
-        }
+        /* Cursor Custom */
+        #cursor { width: 8px; height: 8px; background: #fff; border-radius: 50%; position: fixed; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); }
+        #cursor-f { width: 30px; height: 30px; border: 1px solid rgba(255,255,255,0.4); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: all 0.1s ease-out; }
 
-        /* Nav Minimalista */
-        nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 1rem 10%; border-bottom: 1px solid var(--border);
-            backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100;
-            background: rgba(0,0,0,0.8);
-        }
-        .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: -1px; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 0 10%; height: 80px; border-bottom: 1px solid var(--border); }
+        .logo { font-weight: 800; font-size: 1.2rem; }
 
-        /* Hero Section com sua Foto Embutida */
-        header {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; padding: 120px 10% 80px; min-height: 80vh;
-            background: radial-gradient(circle at 50% 0%, #111, transparent);
-        }
-        .capa-img {
-            width: 140px; height: 140px; border-radius: 50%; object-fit: cover;
-            border: 1px solid var(--border); margin-bottom: 2.5rem;
-            box-shadow: 0 0 40px rgba(255,255,255,0.03);
-            filter: grayscale(100%); transition: 0.5s;
-        }
-        .capa-img:hover { filter: grayscale(0%); transform: scale(1.05); }
-
-        h1 { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 800; letter-spacing: -0.05em; line-height: 0.95; margin-bottom: 1.5rem; }
-        h1 span { color: var(--text-dim); }
-        header p { color: var(--text-dim); max-width: 600px; font-size: 1.15rem; font-weight: 300; }
-
-        /* Grid Vercel de 1px (As linhas de grade perfeitas) */
-        section { padding: 100px 10%; border-top: 1px solid var(--border); }
-        h2 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.25em; color: var(--text-dim); margin-bottom: 3.5rem; text-align: center; }
-
-        .grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1px; background: var(--border); border: 1px solid var(--border);
-        }
+        header { text-align: center; padding: 100px 10%; background: radial-gradient(circle at 50% 0%, #111, transparent); }
+        .capa { width: 150px; height: 150px; border-radius: 50%; border: 2px solid var(--border); margin-bottom: 30px; object-fit: cover; }
         
-        .card { background: var(--bg); padding: 3.5rem; transition: background 0.3s; }
-        .card:hover { background: #050505; }
-        
-        .card h3 { font-size: 1.3rem; font-weight: 600; margin-bottom: 1.2rem; }
-        .card p { color: var(--text-dim); font-size: 0.95rem; font-weight: 300; line-height: 1.7; }
+        h1 { font-size: 4rem; font-weight: 800; line-height: 1; margin-bottom: 20px; letter-spacing: -2px; }
+        h1 span { color: var(--dim); }
+        p.sub { color: var(--dim); max-width: 600px; margin: 0 auto 40px; font-size: 1.1rem; }
 
-        /* Portfolio Servidores (Com Fotos Embutidas) */
-        .server-img { width: 50px; height: 50px; border-radius: 10px; margin-bottom: 1.5rem; border: 1px solid var(--border); transition: 0.3s; filter: grayscale(100%); }
-        .com-card:hover .server-img { filter: grayscale(0%); transform: scale(1.1); }
-        
-        .role-tag { font-size: 0.65rem; font-weight: 800; color: var(--blue); letter-spacing: 1px; margin-bottom: 8px; display: block; }
-        
-        .com-link {
-            display: inline-block; margin-top: 1.5rem; color: var(--text); text-decoration: none;
-            font-size: 0.9rem; font-weight: 600; border-bottom: 1px solid transparent; transition: 0.3s;
-        }
-        .com-link:hover { border-bottom-color: #fff; }
+        .section-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; color: var(--dim); text-align: center; margin: 60px 0 30px; }
 
-        footer { padding: 80px 10%; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.8rem; font-weight: 600; }
+        /* Grid Vercel Style */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 0 10% 100px; }
+        .card { background: #000; padding: 40px; transition: 0.3s; }
+        .card:hover { background: #080808; }
+        
+        .card img { width: 50px; height: 50px; border-radius: 10px; margin-bottom: 20px; border: 1px solid var(--border); }
+        .tag { font-size: 0.6rem; font-weight: 800; color: #0070f3; display: block; margin-bottom: 10px; }
+        .card h3 { margin-bottom: 10px; font-size: 1.2rem; }
+        .card p { color: var(--dim); font-size: 0.9rem; line-height: 1.5; }
+        
+        .btn-link { display: inline-block; margin-top: 20px; color: #fff; text-decoration: none; font-size: 0.8rem; font-weight: 600; border-bottom: 1px solid #333; transition: 0.3s; }
+        .btn-link:hover { border-bottom-color: #fff; }
 
-        @media (max-width: 768px) {
-            .grid { grid-template-columns: 1fr; }
-            h1 { font-size: 2.8rem; }
-            section { padding: 80px 5%; }
-        }
+        footer { padding: 60px; text-align: center; color: #222; font-size: 0.7rem; font-weight: 800; border-top: 1px solid var(--border); }
     </style>
 </head>
 <body>
+    <div id="cursor"></div><div id="cursor-f"></div>
 
-    <div id="cursor"></div>
-    <div id="cursor-follower"></div>
-
-    <nav>
-        <div class="logo">OSEIN</div>
-        <div style="font-size: 0.75rem; color: var(--text-dim); font-weight: 600; letter-spacing: 1px;">HIGH PERFORMANCE STAFF</div>
-    </nav>
+    <nav><div class="logo">OSEIN</div><div style="font-size: 0.7rem; color: var(--dim);">STAFF PORTFOLIO</div></nav>
 
     <header>
-        <img src="https://assets.superyeti.com/capa.png" class="capa-img" alt="oSein Staff">
-        <h1 id="hero-title">High Performance. <br><span>Faster communities.</span></h1>
-        <p id="hero-sub">Especialista em infraestrutura técnica e moderação avançada no Discord. Automação brute-force e segurança blindada para comunidades de elite.</p>
+        <img src="https://i.imgur.com/vHq4R2E.png" class="capa" alt="Sei Profile">
+        <h1>High Performance. <br><span>Faster communities.</span></h1>
+        <p class="sub">Especialista em infraestrutura e segurança para servidores de Discord. Organização de alto nível para grandes comunidades.</p>
     </header>
 
-    <section id="habilidades">
-        <h2>Habilidades Técnicas</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>Estruturação</h3>
-                <p>Arquitetura de hierarquias de cargos, canais limpos e permissões à prova de falhas para operação otimizada.</p>
-            </div>
-            <div class="card">
-                <h3>Automação</h3>
-                <p>Domínio técnico em Sapphire, webhooks e sistemas de logs customizados para monitoramento 24/7 sem erros.</p>
-            </div>
-            <div class="card">
-                <h3>Segurança</h3>
-                <p>Proteção ativa Anti-Raid, sistemas de verificação por captcha e gestão profissional de crises em grande escala.</p>
-            </div>
+    <div class="section-title">Comunidades Ativas</div>
+    <section class="grid">
+        <div class="card">
+            <img src="https://i.imgur.com/eBf7T8O.png">
+            <span class="tag">MODERADOR</span>
+            <h3>Anime Crash</h3>
+            <p>Gestão de equipe e resolução de conflitos internos.</p>
+            <a href="https://discord.gg/K5gSxMUsm" class="btn-link">Join Server →</a>
+        </div>
+        <div class="card">
+            <img src="https://i.imgur.com/vYl0Jv7.png">
+            <span class="tag">TRIAL MOD</span>
+            <h3>Anime Brawl</h3>
+            <p>Auxílio na estruturação técnica e organização de canais.</p>
+            <a href="https://discord.gg/xCN3kvCwzG" class="btn-link">Join Server →</a>
+        </div>
+        <div class="card">
+            <img src="https://i.imgur.com/yU4lZ6W.png">
+            <span class="tag">MODERADOR</span>
+            <h3>Anime All</h3>
+            <p>Monitoramento preventivo e suporte ativo via tickets.</p>
+            <a href="https://discord.com/invite/CkVnGNm3Ct" class="btn-link">Join Server →</a>
+        </div>
+        <div class="card">
+            <img src="https://i.imgur.com/C3fEAnx.png">
+            <span class="tag">MODERADOR</span>
+            <h3>Anime Fallen</h3>
+            <p>Manutenção da ordem e aplicação das regras da comunidade.</p>
+            <a href="https://discord.gg/xYMbWT8hby" class="btn-link">Join Server →</a>
         </div>
     </section>
 
-    <section id="portfolio">
-        <h2>Comunidades</h2>
-        <div class="grid">
-            <div class="card com-card">
-                <img src="https://assets.superyeti.com/crash.png" class="server-img" alt="Crash">
-                <span class="role-tag">MODERADOR</span>
-                <h3>Anime Crash</h3>
-                <p>Resolução ativa de conflitos e suporte via tickets.</p>
-                <a href="https://discord.gg/K5gSxMUsm" target="_blank" class="com-link">Join Server →</a>
-            </div>
-            <div class="card com-card">
-                <img src="https://assets.superyeti.com/brawl.png" class="server-img" alt="Brawl">
-                <span class="role-tag">TRIAL MOD</span>
-                <h3>Anime Brawl</h3>
-                <p>Auxílio na estruturação técnica de regras e canais.</p>
-                <a href="https://discord.gg/xCN3kvCwzG" target="_blank" class="com-link">Join Server →</a>
-            </div>
-            <div class="card com-card">
-                <img src="https://assets.superyeti.com/all.png" class="server-img" alt="All">
-                <span class="role-tag">MODERADOR</span>
-                <h3>Anime All</h3>
-                <p>Monitoramento preventivo e suporte geral da
+    <footer>© 2026 OSEIN. POWERED BY CODE.</footer>
+
+    <script>
+        const c = document.getElementById('cursor'); const f = document.getElementById('cursor-f');
+        document.addEventListener('mousemove', (e) => {
+            c.style.left = e.clientX + 'px'; c.style.top = e.clientY + 'px';
+            setTimeout(() => { f.style.left = e.clientX + 'px'; f.style.top = e.clientY + 'px'; }, 50);
+        });
+    </script>
+</body>
+</html>
