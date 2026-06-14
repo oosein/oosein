@@ -7,214 +7,67 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{
-  font-family:Inter,Arial,sans-serif;
-  background:#050505;
-  color:#eee;
-  min-height:100vh;
-}
+body{font-family:Inter,Arial,sans-serif;background:#050505;color:#eee;min-height:100vh}
 a{text-decoration:none;color:inherit}
 .wrap{max-width:980px;margin:auto;padding:22px}
 
-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:25px;
-}
-.logo{font-size:18px;font-weight:800;letter-spacing:.5px}
-.lang{
-  background:#111;
-  color:#ddd;
-  border:1px solid #2b2b2b;
-  border-radius:999px;
-  padding:8px 13px;
-  cursor:pointer;
-}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.logo{font-weight:800;font-size:18px}
+.lang{background:#111;border:1px solid #2d2d2d;color:#ddd;border-radius:999px;padding:8px 13px;cursor:pointer}
 
-.hero{text-align:center;margin-bottom:25px}
-.avatar{
-  width:115px;height:115px;
-  border-radius:50%;
-  object-fit:cover;
-  border:3px solid #333;
-  margin-bottom:12px;
-}
+.hero{text-align:center;margin-bottom:20px}
+.avatar{width:110px;height:110px;border-radius:50%;object-fit:cover;border:3px solid #333;margin-bottom:10px}
 h1{font-size:46px;letter-spacing:-2px}
-.role{color:#aaa;margin:6px 0 10px}
-.desc{max-width:540px;margin:auto;color:#999;font-size:14px;line-height:1.6}
+.role{color:#aaa;margin:6px 0}
+.desc{max-width:530px;margin:auto;color:#999;font-size:14px;line-height:1.5}
 
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  margin:22px auto 35px;
-  max-width:640px;
-}
-.stat{
-  background:#101010;
-  border:1px solid #252525;
-  border-radius:18px;
-  padding:15px;
-  text-align:center;
-}
-.stat b{font-size:25px;color:#fff;display:block}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:630px;margin:22px auto 28px}
+.stat{background:#101010;border:1px solid #262626;border-radius:18px;padding:14px;text-align:center}
+.stat b{display:block;font-size:25px;color:#fff}
 .stat span{font-size:12px;color:#888}
 
-.section{text-align:center;margin-top:15px}
-.section h2{font-size:30px;margin-bottom:5px}
-.section p{font-size:13px;color:#888;margin-bottom:20px}
+.section{text-align:center;margin-top:22px}
+.section h2{font-size:29px;margin-bottom:5px}
+.section p{font-size:13px;color:#888;margin-bottom:16px}
 
-.showcase{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:18px;
-  margin:0 auto;
-}
-.side-card,.main-card{
-  background:#101010;
-  border:1px solid #292929;
-  border-radius:22px;
-  overflow:hidden;
-}
-.side-card{
-  width:190px;
-  height:210px;
-  opacity:.45;
-  filter:brightness(.75);
-}
-.main-card{
-  width:330px;
-  min-height:330px;
-  text-align:left;
-  box-shadow:0 25px 70px rgba(0,0,0,.45);
-}
+.carousel{display:flex;justify-content:center;align-items:center;gap:15px}
+.side,.main-small{background:#101010;border:1px solid #292929;border-radius:20px;overflow:hidden}
+.side{width:170px;height:185px;opacity:.38;filter:brightness(.7)}
+.main-small{width:285px;min-height:285px;text-align:left;box-shadow:0 20px 60px rgba(0,0,0,.45)}
 
-.cover{
-  height:135px;
-  background-size:cover;
-  background-position:center;
-  position:relative;
-}
-.cover:after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(to bottom,rgba(0,0,0,.05),#101010);
-}
-.content{padding:16px}
-.mini-content{padding:12px;text-align:left}
-.server-icon{
-  width:58px;height:58px;
-  border-radius:15px;
-  object-fit:cover;
-  border:1px solid #333;
-  margin-bottom:10px;
-}
-.mini-icon{
-  width:42px;height:42px;
-  border-radius:12px;
-  object-fit:cover;
-  border:1px solid #333;
-  margin-bottom:8px;
-}
-.members{
-  color:#aaa;
-  font-size:12px;
-  text-transform:uppercase;
-  letter-spacing:.8px;
-}
-.name{font-size:28px;font-weight:800;margin:5px 0}
+.cover{height:115px;background-size:cover;background-position:center;position:relative}
+.cover:after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.05),#101010)}
+.content{padding:14px}
+.icon{width:56px;height:56px;border-radius:15px;object-fit:cover;border:1px solid #333;margin-bottom:8px}
+.small-text{font-size:12px;color:#aaa;text-transform:uppercase;letter-spacing:.7px}
+.name{font-size:24px;font-weight:900;margin:5px 0}
 .position{color:#aaa;font-size:14px;margin-bottom:12px}
-.active{
-  display:inline-block;
-  font-size:12px;
-  color:#ddd;
-  background:#191919;
-  border:1px solid #333;
-  border-radius:999px;
-  padding:5px 9px;
-  margin-bottom:13px;
-}
-.join{
-  float:right;
-  background:#171717;
-  border:1px solid #3a3a3a;
-  border-radius:999px;
-  padding:8px 13px;
-  font-size:12px;
-}
-.controls{
-  margin:18px 0;
-  display:flex;
-  justify-content:center;
-  gap:8px;
-}
-.ctrl,.dot{
-  background:#141414;
-  border:1px solid #333;
-  color:#ddd;
-  border-radius:50%;
-  width:34px;height:34px;
-  cursor:pointer;
-}
-.dot{
-  width:9px;height:9px;
-  border:none;
-  background:#555;
-  margin-top:12px;
-}
-.dot.active-dot{background:#ddd}
+.join{display:inline-block;background:#171717;border:1px solid #3a3a3a;border-radius:999px;padding:8px 13px;font-size:12px}
 
-.toggle{
-  background:#111;
-  color:#eee;
-  border:1px solid #333;
-  border-radius:999px;
-  padding:11px 18px;
-  font-weight:700;
-  cursor:pointer;
-  margin-bottom:18px;
-}
+.controls{margin:15px 0 26px;display:flex;justify-content:center;align-items:center;gap:8px}
+.ctrl{width:33px;height:33px;border-radius:50%;background:#141414;border:1px solid #333;color:#ddd;cursor:pointer}
+.dot{width:8px;height:8px;border-radius:50%;background:#555;border:none;cursor:pointer}
+.dot.on{background:#ddd}
 
-.former{
-  display:none;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  margin-top:5px;
-}
-.former.show{display:grid}
-.f-card{
-  background:#101010;
-  border:1px solid #292929;
-  border-radius:16px;
-  padding:12px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-}
-.f-left{display:flex;align-items:center;gap:10px;text-align:left}
-.f-left img{width:42px;height:42px;border-radius:12px;object-fit:cover}
-.f-name{font-weight:800;font-size:14px}
-.f-role{font-size:12px;color:#888}
-.f-join{
-  background:#171717;
-  border:1px solid #333;
-  border-radius:10px;
-  padding:7px 10px;
-  font-size:12px;
-}
+.big-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:760px;margin:0 auto}
+.big-card{height:250px;border-radius:24px;overflow:hidden;position:relative;background:#111;border:1px solid #292929;text-align:left;box-shadow:0 18px 45px rgba(0,0,0,.35)}
+.big-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.82)}
+.big-card:after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.05) 25%,rgba(0,0,0,.88) 100%)}
+.big-content{position:absolute;left:18px;right:18px;bottom:16px;z-index:2}
+.big-title{font-size:27px;font-weight:900;margin-bottom:6px}
+.big-members{font-size:12px;color:#cfcfcf;text-transform:uppercase;letter-spacing:.8px;margin-bottom:9px}
+.big-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.badge{font-size:12px;background:#191919;border:1px solid #333;color:#ddd;border-radius:999px;padding:6px 9px}
+.big-join{background:#ededed;color:#111;border-radius:999px;padding:8px 13px;font-size:12px;font-weight:800}
 
-footer{text-align:center;color:#777;font-size:13px;padding:30px 0 8px}
+footer{text-align:center;color:#777;font-size:13px;padding:28px 0 5px}
 
 @media(max-width:760px){
   .stats{grid-template-columns:1fr}
-  .showcase{flex-direction:column}
-  .side-card{display:none}
-  .main-card{width:100%}
-  .former{grid-template-columns:1fr}
+  .carousel{gap:0}
+  .side{display:none}
+  .main-small{width:100%}
+  .big-grid{grid-template-columns:1fr}
   h1{font-size:38px}
 }
 </style>
@@ -243,46 +96,47 @@ footer{text-align:center;color:#777;font-size:13px;padding:30px 0 8px}
 </div>
 
 <section class="section">
-  <h2 data-en="Experiences" data-pt="Experiências">Experiences</h2>
-  <p data-en="My top moderation experiences and complete server history." data-pt="Minhas principais experiências de moderação e histórico de servidores.">
-    My top moderation experiences and complete server history.
-  </p>
+  <h2 data-en="Small Projects" data-pt="Projetos Menores">Small Projects</h2>
+  <p data-en="Former staff experiences and smaller servers." data-pt="Experiências antigas e servidores menores.">Former staff experiences and smaller servers.</p>
 
-  <div class="showcase">
-    <div class="side-card" id="leftCard"></div>
-    <div class="main-card" id="mainCard"></div>
-    <div class="side-card" id="rightCard"></div>
+  <div class="carousel">
+    <div class="side" id="leftSmall"></div>
+    <div class="main-small" id="mainSmall"></div>
+    <div class="side" id="rightSmall"></div>
   </div>
 
-  <div class="controls">
-    <button class="ctrl" onclick="prev()">‹</button>
-    <button class="dot active-dot" id="dot0" onclick="setServer(0)"></button>
-    <button class="dot" id="dot1" onclick="setServer(1)"></button>
-    <button class="ctrl" onclick="next()">›</button>
-  </div>
+  <div class="controls" id="dots"></div>
+</section>
 
-  <button class="toggle" onclick="toggleFormer()" id="formerBtn">View Former Staff</button>
+<section class="section">
+  <h2 data-en="Big Projects" data-pt="Projetos Grandes">Big Projects</h2>
+  <p data-en="Main active moderation experiences." data-pt="Principais experiências ativas de moderação.">Main active moderation experiences.</p>
 
-  <div class="former" id="former">
-    <div class="f-card">
-      <div class="f-left"><img src="https://cdn.discordapp.com/attachments/1253521147962593320/1515551360056037437/image.png?ex=6a2f6ab1&is=6a2e1931&hm=1affecc9e272863b1dbe7dd116cb6ba4275a62e3647dd569bffbdc318ac5d3d8&"><div><div class="f-name">Anime Paradise</div><div class="f-role">Moderator</div></div></div>
-      <a class="f-join" href="https://discord.gg/P8J8DzcvK3" target="_blank">Join</a>
+  <div class="big-grid">
+    <div class="big-card">
+      <div class="big-bg" style="background-image:url('https://images-ext-1.discordapp.net/external/2PAtCeqZlw_sWEXZ8M3JZ-k2X1dw4hgbOj315c4VJ40/%3Fsize%3D4096/https/cdn.discordapp.com/icons/1340825930326741054/a889b06e59f047b99e6a0d940daf2367.png?format=webp&quality=lossless')"></div>
+      <div class="big-content">
+        <div class="big-members">50,000+ Members</div>
+        <div class="big-title">Anime Astral</div>
+        <div class="position">Trial Moderator (TMod)</div>
+        <div class="big-bottom">
+          <span class="badge" data-en="Active" data-pt="Ativo">Active</span>
+          <a class="big-join" href="https://discord.gg/animeastral" target="_blank" data-en="Join" data-pt="Entrar">Join</a>
+        </div>
+      </div>
     </div>
-    <div class="f-card">
-      <div class="f-left"><img src="https://cdn.discordapp.com/icons/1494472346319458375/b3e398934d7676500cd995020632f171.png?size=2048"><div><div class="f-name">Anime Stars</div><div class="f-role">Moderator</div></div></div>
-      <a class="f-join" href="https://discord.gg/8pGjas3uSm" target="_blank">Join</a>
-    </div>
-    <div class="f-card">
-      <div class="f-left"><img src="https://cdn.discordapp.com/attachments/1470536029990551775/1515551723194683483/image.png?ex=6a2f6b08&is=6a2e1988&hm=5708bbdcd384beff318fdaf3462be962aaf9c237eac80f0d6611c6bf7b30f77f&"><div><div class="f-name">Anime Crash</div><div class="f-role">Moderator</div></div></div>
-      <a class="f-join" href="https://discord.gg/BABun7fZpF" target="_blank">Join</a>
-    </div>
-    <div class="f-card">
-      <div class="f-left"><img src="https://cdn.discordapp.com/attachments/1470536029990551775/1515552267296837724/image.png?ex=6a2f6b8a&is=6a2e1a0a&hm=73fd9d2113314fada34bf90be4a352658084bcce4c4dd290a24d8fb2417d9880&"><div><div class="f-name">Anime Overdrive</div><div class="f-role">Moderator</div></div></div>
-      <a class="f-join" href="https://discord.gg/NbWwvWm5z7" target="_blank">Join</a>
-    </div>
-    <div class="f-card">
-      <div class="f-left"><img src="https://cdn.discordapp.com/attachments/1470536029990551775/1515553100965089371/image.png?ex=6a2f6c50&is=6a2e1ad0&hm=0d3fbba5d50151b3aee73ab87f9f3cdf182cf50186043f0001b90e4a8a1106d5&"><div><div class="f-name">Anime Travellers</div><div class="f-role">Trial Moderator</div></div></div>
-      <a class="f-join" href="https://discord.gg/8sVAeUmBs" target="_blank">Join</a>
+
+    <div class="big-card">
+      <div class="big-bg" style="background-image:url('https://images-ext-1.discordapp.net/external/q9sA5ZKH3WqLEjaaM7RGf7ATPxDPW-AY7oJA0RdsgSU/%3Fsize%3D512/https/cdn.discordapp.com/icons/1412981321789083730/a9bb380d34deeae156cf3eb34203f0ad.png?format=webp&quality=lossless')"></div>
+      <div class="big-content">
+        <div class="big-members">110,000+ Members</div>
+        <div class="big-title">Anime Tactical</div>
+        <div class="position">Trial Moderator (TMod)</div>
+        <div class="big-bottom">
+          <span class="badge" data-en="Active" data-pt="Ativo">Active</span>
+          <a class="big-join" href="https://discord.gg/animetactical" target="_blank" data-en="Join" data-pt="Entrar">Join</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -291,67 +145,50 @@ footer{text-align:center;color:#777;font-size:13px;padding:30px 0 8px}
 </div>
 
 <script>
-const servers=[
-  {
-    name:"Anime Astral",
-    members:"50,000+ Members",
-    role:"Trial Moderator (TMod)",
-    link:"https://discord.gg/animeastral",
-    icon:"https://images-ext-1.discordapp.net/external/2PAtCeqZlw_sWEXZ8M3JZ-k2X1dw4hgbOj315c4VJ40/%3Fsize%3D4096/https/cdn.discordapp.com/icons/1340825930326741054/a889b06e59f047b99e6a0d940daf2367.png?format=webp&quality=lossless"
-  },
-  {
-    name:"Anime Tactical",
-    members:"110,000+ Members",
-    role:"Trial Moderator (TMod)",
-    link:"https://discord.gg/animetactical",
-    icon:"https://images-ext-1.discordapp.net/external/q9sA5ZKH3WqLEjaaM7RGf7ATPxDPW-AY7oJA0RdsgSU/%3Fsize%3D512/https/cdn.discordapp.com/icons/1412981321789083730/a9bb380d34deeae156cf3eb34203f0ad.png?format=webp&quality=lossless"
-  }
+const smallProjects=[
+{name:"Anime Paradise",role:"Moderator",link:"https://discord.gg/P8J8DzcvK3",icon:"https://cdn.discordapp.com/attachments/1253521147962593320/1515551360056037437/image.png?ex=6a2f6ab1&is=6a2e1931&hm=1affecc9e272863b1dbe7dd116cb6ba4275a62e3647dd569bffbdc318ac5d3d8&"},
+{name:"Anime Stars",role:"Moderator",link:"https://discord.gg/8pGjas3uSm",icon:"https://cdn.discordapp.com/icons/1494472346319458375/b3e398934d7676500cd995020632f171.png?size=2048"},
+{name:"Anime Crash",role:"Moderator",link:"https://discord.gg/BABun7fZpF",icon:"https://cdn.discordapp.com/attachments/1470536029990551775/1515551723194683483/image.png?ex=6a2f6b08&is=6a2e1988&hm=5708bbdcd384beff318fdaf3462be962aaf9c237eac80f0d6611c6bf7b30f77f&"},
+{name:"Anime Overdrive",role:"Moderator",link:"https://discord.gg/NbWwvWm5z7",icon:"https://cdn.discordapp.com/attachments/1470536029990551775/1515552267296837724/image.png?ex=6a2f6b8a&is=6a2e1a0a&hm=73fd9d2113314fada34bf90be4a352658084bcce4c4dd290a24d8fb2417d9880&"},
+{name:"Anime Travellers",role:"Trial Moderator",link:"https://discord.gg/8sVAeUmBs",icon:"https://cdn.discordapp.com/attachments/1470536029990551775/1515553100965089371/image.png?ex=6a2f6c50&is=6a2e1ad0&hm=0d3fbba5d50151b3aee73ab87f9f3cdf182cf50186043f0001b90e4a8a1106d5&"}
 ];
 
 let current=0;
 let lang=localStorage.getItem("lang")||"en";
-let formerOpen=false;
 
-function cardHTML(s,mini=false){
-  if(mini){
-    return `
-      <div class="cover" style="height:110px;background-image:url('${s.icon}')"></div>
-      <div class="mini-content">
-        <img class="mini-icon" src="${s.icon}">
-        <div class="server-name" style="font-size:15px">${s.name}</div>
-        <div class="server-members">${s.members}</div>
-      </div>`;
-  }
+function smallCard(s,mini=false){
   return `
-    <div class="cover" style="background-image:url('${s.icon}')"></div>
+    <div class="cover" style="background-image:url('${s.icon}');height:${mini?'95px':'115px'}"></div>
     <div class="content">
-      <img class="server-icon" src="${s.icon}">
-      <div class="members">${s.members}</div>
-      <div class="name">${s.name}</div>
+      <img class="icon" src="${s.icon}">
+      <div class="small-text">${mini?'Former Staff':'Small Project'}</div>
+      <div class="name" style="font-size:${mini?'17px':'24px'}">${s.name}</div>
       <div class="position">${s.role}</div>
-      <span class="active">${lang==="en"?"Active":"Ativo"}</span>
-      <a class="join" href="${s.link}" target="_blank">${lang==="en"?"Join Server":"Entrar"}</a>
-    </div>`;
+      ${mini?'':`<a class="join" href="${s.link}" target="_blank">${lang==="en"?"Join Server":"Entrar"}</a>`}
+    </div>
+  `;
 }
 
 function render(){
-  const other=current===0?1:0;
-  document.getElementById("mainCard").innerHTML=cardHTML(servers[current]);
-  document.getElementById("leftCard").innerHTML=cardHTML(servers[other],true);
-  document.getElementById("rightCard").innerHTML=cardHTML(servers[other],true);
-  document.getElementById("dot0").classList.toggle("active-dot",current===0);
-  document.getElementById("dot1").classList.toggle("active-dot",current===1);
-}
-function next(){current=current===0?1:0;render()}
-function prev(){next()}
-function setServer(i){current=i;render()}
+  const left=(current-1+smallProjects.length)%smallProjects.length;
+  const right=(current+1)%smallProjects.length;
+  document.getElementById("mainSmall").innerHTML=smallCard(smallProjects[current]);
+  document.getElementById("leftSmall").innerHTML=smallCard(smallProjects[left],true);
+  document.getElementById("rightSmall").innerHTML=smallCard(smallProjects[right],true);
 
-function toggleFormer(){
-  formerOpen=!formerOpen;
-  document.getElementById("former").classList.toggle("show",formerOpen);
-  document.getElementById("formerBtn").textContent=formerOpen
-    ? (lang==="en"?"Hide Former Staff":"Ocultar Staff Antiga")
-    : (lang==="en"?"View Former Staff":"Ver Staff Antiga");
+  document.getElementById("dots").innerHTML=
+    `<button class="ctrl" onclick="move(-1)">‹</button>`+
+    smallProjects.map((_,i)=>`<button class="dot ${i===current?'on':''}" onclick="setProject(${i})"></button>`).join("")+
+    `<button class="ctrl" onclick="move(1)">›</button>`;
+}
+
+function move(n){
+  current=(current+n+smallProjects.length)%smallProjects.length;
+  render();
+}
+function setProject(i){
+  current=i;
+  render();
 }
 
 function toggleLang(){
@@ -360,9 +197,6 @@ function toggleLang(){
   document.querySelectorAll("[data-en]").forEach(el=>{
     el.textContent=el.dataset[lang];
   });
-  document.getElementById("formerBtn").textContent=formerOpen
-    ? (lang==="en"?"Hide Former Staff":"Ocultar Staff Antiga")
-    : (lang==="en"?"View Former Staff":"Ver Staff Antiga");
   render();
 }
 
