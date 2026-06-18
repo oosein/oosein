@@ -8,15 +8,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
 
 body{
   font-family:"Inter",Arial,sans-serif;
@@ -25,10 +18,7 @@ body{
   min-height:100vh;
 }
 
-a{
-  color:inherit;
-  text-decoration:none;
-}
+a{text-decoration:none;color:inherit}
 
 .page{
   width:100%;
@@ -47,7 +37,6 @@ header{
 .logo{
   font-size:17px;
   font-weight:900;
-  color:#f4f4f4;
 }
 
 .lang{
@@ -175,8 +164,7 @@ h1{
   gap:18px;
 }
 
-.side-card,
-.main-card{
+.side-card,.main-card{
   background:#101010;
   border:1px solid #2d2d2d;
   overflow:hidden;
@@ -276,20 +264,22 @@ h1{
   font-weight:900;
 }
 
-.join{
-  background:#eeeeee;
-  border:1px solid #eeeeee;
-  color:#111;
+.join,.prev-join{
+  background:#151515;
+  border:1px solid #3b3b3b;
+  color:#eeeeee;
   border-radius:15px;
   padding:9px 14px;
   font-size:12px;
   font-weight:900;
   transition:.22s ease;
+  white-space:nowrap;
 }
 
-.join:hover{
+.join:hover,.prev-join:hover{
   transform:translateY(-2px);
-  background:#fff;
+  background:#202020;
+  border-color:#5a5a5a;
 }
 
 .preview-cover{
@@ -381,7 +371,7 @@ h1{
 
 .toggle{
   background:#111;
-  border:1px solid #eeeeee;
+  border:1px solid #3b3b3b;
   color:#eeeeee;
   border-radius:22px;
   padding:12px 22px;
@@ -396,6 +386,7 @@ h1{
 .toggle:hover{
   transform:translateY(-3px);
   background:#1a1a1a;
+  border-color:#555;
 }
 
 .previous-grid{
@@ -414,7 +405,8 @@ h1{
   border:1px solid #2d2d2d;
   border-radius:24px;
   padding:16px;
-  display:flex;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
   align-items:center;
   gap:13px;
   text-align:left;
@@ -427,13 +419,29 @@ h1{
   border-color:#444;
 }
 
-.prev-card img{
+.prev-icon{
   width:58px;
   height:58px;
   border-radius:18px;
-  object-fit:cover;
   border:1px solid #414141;
+  overflow:hidden;
+  background:#191919;
   flex-shrink:0;
+}
+
+.prev-icon img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.prev-icon img[src=""]{
+  display:none;
+}
+
+.prev-info{
+  min-width:0;
 }
 
 .prev-name{
@@ -441,6 +449,9 @@ h1{
   font-weight:900;
   letter-spacing:-.3px;
   margin-bottom:3px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
 .prev-role{
@@ -468,9 +479,7 @@ h1{
 }
 
 @media(max-width:760px){
-  h1{
-    font-size:40px;
-  }
+  h1{font-size:40px}
 
   .stats{
     grid-template-columns:1fr;
@@ -490,6 +499,15 @@ h1{
 
   .previous-grid{
     grid-template-columns:1fr;
+  }
+
+  .prev-card{
+    grid-template-columns:auto 1fr;
+  }
+
+  .prev-join{
+    grid-column:1 / -1;
+    text-align:center;
   }
 }
 </style>
@@ -548,48 +566,63 @@ h1{
   <div class="previous-grid" id="previousGrid">
 
     <div class="prev-card">
-      <img src="https://cdn.discordapp.com/attachments/1253521147962593320/1515551360056037437/image.png?ex=6a2f6ab1&is=6a2e1931&hm=1affecc9e272863b1dbe7dd116cb6ba4275a62e3647dd569bffbdc318ac5d3d8&" alt="Anime Paradise">
-      <div>
+      <div class="prev-icon">
+        <img src="https://cdn.discordapp.com/attachments/1253521147962593320/1515551360056037437/image.png?ex=6a2f6ab1&is=6a2e1931&hm=1affecc9e272863b1dbe7dd116cb6ba4275a62e3647dd569bffbdc318ac5d3d8&" alt="Anime Paradise" onerror="this.style.display='none'">
+      </div>
+      <div class="prev-info">
         <div class="prev-name">Anime Paradise</div>
         <div class="prev-role">Moderator</div>
         <span class="prev-status" data-en="Active" data-pt="Ativo">Active</span>
       </div>
+      <a class="prev-join" href="https://discord.gg/P8J8DzcvK3" target="_blank" data-en="Join" data-pt="Entrar">Join</a>
     </div>
 
     <div class="prev-card">
-      <img src="https://cdn.discordapp.com/icons/1494472346319458375/b3e398934d7676500cd995020632f171.png?size=2048" alt="Anime Stars">
-      <div>
+      <div class="prev-icon">
+        <img src="https://cdn.discordapp.com/icons/1494472346319458375/b3e398934d7676500cd995020632f171.png?size=2048" alt="Anime Stars" onerror="this.style.display='none'">
+      </div>
+      <div class="prev-info">
         <div class="prev-name">Anime Stars</div>
         <div class="prev-role">Moderator</div>
         <span class="prev-status" data-en="Active" data-pt="Ativo">Active</span>
       </div>
+      <a class="prev-join" href="https://discord.gg/8pGjas3uSm" target="_blank" data-en="Join" data-pt="Entrar">Join</a>
     </div>
 
     <div class="prev-card">
-      <img src="https://cdn.discordapp.com/attachments/1470536029990551775/1515553100965089371/image.png?ex=6a2f6c50&is=6a2e1ad0&hm=0d3fbba5d50151b3aee73ab87f9f3cdf182cf50186043f0001b90e4a8a1106d5&" alt="Anime Travellers">
-      <div>
+      <div class="prev-icon">
+        <img src="https://cdn.discordapp.com/attachments/1470536029990551775/1515553100965089371/image.png?ex=6a2f6c50&is=6a2e1ad0&hm=0d3fbba5d50151b3aee73ab87f9f3cdf182cf50186043f0001b90e4a8a1106d5&" alt="Anime Travellers" onerror="this.style.display='none'">
+      </div>
+      <div class="prev-info">
         <div class="prev-name">Anime Travellers</div>
         <div class="prev-role">Trial Moderator</div>
         <span class="prev-status" data-en="Active" data-pt="Ativo">Active</span>
       </div>
+      <a class="prev-join" href="https://discord.gg/8sVAeUmBs" target="_blank" data-en="Join" data-pt="Entrar">Join</a>
     </div>
 
     <div class="prev-card">
-      <img src="https://cdn.discordapp.com/attachments/1470536029990551775/1515551723194683483/image.png?ex=6a2f6b08&is=6a2e1988&hm=5708bbdcd384beff318fdaf3462be962aaf9c237eac80f0d6611c6bf7b30f77f&" alt="Anime Crash">
-      <div>
+      <div class="prev-icon">
+        <img src="https://cdn.discordapp.com/attachments/1470536029990551775/1515551723194683483/image.png?ex=6a2f6b08&is=6a2e1988&hm=5708bbdcd384beff318fdaf3462be962aaf9c237eac80f0d6611c6bf7b30f77f&" alt="Anime Crash" onerror="this.style.display='none'">
+      </div>
+      <div class="prev-info">
         <div class="prev-name">Anime Crash</div>
         <div class="prev-role">Moderator</div>
         <span class="prev-status" data-en="Former Staff" data-pt="Staff Antiga">Former Staff</span>
       </div>
+      <a class="prev-join" href="https://discord.gg/BABun7fZpF" target="_blank" data-en="Join" data-pt="Entrar">Join</a>
     </div>
 
     <div class="prev-card">
-      <img src="https://cdn.discordapp.com/attachments/1470536029990551775/1515552267296837724/image.png?ex=6a2f6b8a&is=6a2e1a0a&hm=73fd9d2113314fada34bf90be4a352658084bcce4c4dd290a24d8fb2417d9880&" alt="Anime Overdrive">
-      <div>
+      <div class="prev-icon">
+        <img src="https://cdn.discordapp.com/attachments/1470536029990551775/1515552267296837724/image.png?ex=6a2f6b8a&is=6a2e1a0a&hm=73fd9d2113314fada34bf90be4a352658084bcce4c4dd290a24d8fb2417d9880&" alt="Anime Overdrive" onerror="this.style.display='none'">
+      </div>
+      <div class="prev-info">
         <div class="prev-name">Anime Overdrive</div>
         <div class="prev-role">Moderator</div>
         <span class="prev-status" data-en="Former Staff" data-pt="Staff Antiga">Former Staff</span>
       </div>
+      <a class="prev-join" href="https://discord.gg/NbWwvWm5z7" target="_blank" data-en="Join" data-pt="Entrar">Join</a>
     </div>
 
   </div>
@@ -638,7 +671,7 @@ function mainCard(s){
   return `
     <div class="cover" style="background-image:url('${s.icon}')"></div>
     <div class="card-body">
-      <img class="server-icon" src="${s.icon}" alt="${s.name}">
+      <img class="server-icon" src="${s.icon}" alt="${s.name}" onerror="this.style.display='none'">
       <div class="members">${s.members}</div>
       <div class="name">${s.name}</div>
       <div class="position">${s.role}</div>
@@ -654,7 +687,7 @@ function previewCard(s){
   return `
     <div class="preview-cover" style="background-image:url('${s.icon}')"></div>
     <div class="preview-body">
-      <img class="preview-icon" src="${s.icon}" alt="${s.name}">
+      <img class="preview-icon" src="${s.icon}" alt="${s.name}" onerror="this.style.display='none'">
       <div class="preview-name">${s.name}</div>
       <div class="preview-members">${s.members}</div>
     </div>
