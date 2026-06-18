@@ -1,411 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>oSein | Discord Staff</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-
-body{
-  font-family:"Inter",Arial,sans-serif;
-  background:#050505;
-  color:#f2f2f2;
-  min-height:100vh;
-}
-
+body{font-family:"Inter",Arial,sans-serif;background:#050505;color:#f2f2f2;min-height:100vh}
 a{text-decoration:none;color:inherit}
 
-.page{
-  width:100%;
-  max-width:1120px;
-  margin:0 auto;
-  padding:24px 18px 46px;
-}
+.page{max-width:1120px;margin:0 auto;padding:24px 18px 46px}
 
-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:32px;
-}
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px}
+.logo{font-size:17px;font-weight:900}
+.lang{background:#111;border:1px solid #2b2b2b;color:#d8d8d8;border-radius:14px;padding:8px 13px;font-size:12px;font-weight:800;cursor:pointer}
+.lang:hover{background:#1a1a1a;border-color:#444}
 
-.logo{
-  font-size:17px;
-  font-weight:900;
-}
+.hero{text-align:center;margin-bottom:28px}
+.avatar{width:112px;height:112px;border-radius:50%;object-fit:cover;border:3px solid #303030;margin-bottom:13px}
+h1{font-size:48px;line-height:1;font-weight:900;letter-spacing:-2px}
+.role{margin:8px 0;color:#c4c4c4;font-size:16px;font-weight:700}
+.desc{max-width:580px;margin:0 auto;color:#989898;font-size:14px;line-height:1.6}
 
-.lang{
-  background:#111;
-  border:1px solid #2b2b2b;
-  color:#d8d8d8;
-  border-radius:14px;
-  padding:8px 13px;
-  font-family:inherit;
-  font-size:12px;
-  font-weight:800;
-  cursor:pointer;
-  transition:.22s ease;
-}
+.stats{max-width:760px;margin:26px auto 44px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.stat{background:#101010;border:1px solid #292929;border-radius:22px;padding:17px 20px;text-align:center}
+.stat strong{display:block;font-size:28px;font-weight:900}
+.stat span{display:block;color:#9d9d9d;font-size:13px;font-weight:700;margin-top:4px}
 
-.lang:hover{
-  background:#1a1a1a;
-  border-color:#444;
-  transform:translateY(-2px);
-}
+.section{text-align:center;margin-top:38px}
+.section h2{font-size:30px;font-weight:900;letter-spacing:-.9px;margin-bottom:5px}
+.section p{color:#8e8e8e;font-size:13px;font-weight:600;margin-bottom:20px}
 
-.hero{
-  text-align:center;
-  margin-bottom:30px;
-}
+.showcase{display:flex;align-items:center;justify-content:center;gap:18px}
+.side-card,.main-card{background:#101010;border:1px solid #2d2d2d;overflow:hidden;transition:.22s ease}
+.side-card{width:175px;height:215px;border-radius:24px;opacity:.38;filter:brightness(.72)}
+.main-card{width:370px;min-height:340px;border-radius:28px;text-align:left;box-shadow:0 22px 62px rgba(0,0,0,.44)}
+.main-card:hover,.side-card:hover{transform:translateY(-5px);border-color:#444}
 
-.avatar{
-  width:118px;
-  height:118px;
-  border-radius:50%;
-  object-fit:cover;
-  border:3px solid #303030;
-  margin-bottom:14px;
-  transition:.22s ease;
-}
+.cover{height:140px;background-size:cover;background-position:center;position:relative}
+.cover:after,.preview-cover:after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.06),#101010)}
 
-.avatar:hover{
-  transform:translateY(-4px) scale(1.03);
-  border-color:#555;
-}
+.card-body{padding:16px}
+.server-icon{width:54px;height:54px;border-radius:16px;object-fit:cover;border:1px solid #414141;margin-bottom:10px}
+.members{color:#eee;font-size:12px;font-weight:900;margin-bottom:6px}
+.name{font-size:26px;font-weight:900;letter-spacing:-.7px;margin-bottom:5px}
+.position{color:#c5c5c5;font-size:13px;font-weight:700;margin-bottom:12px}
+.card-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px}
 
-h1{
-  font-size:50px;
-  line-height:1;
-  font-weight:900;
-  letter-spacing:-2px;
-}
+.status,.prev-status{background:#1a1a1a;border:1px solid #393939;color:#e0e0e0;border-radius:13px;padding:6px 9px;font-size:12px;font-weight:900}
+.join,.prev-join{background:#151515;border:1px solid #3b3b3b;color:#eee;border-radius:14px;padding:8px 12px;font-size:12px;font-weight:900;white-space:nowrap}
+.join:hover,.prev-join:hover{background:#202020;border-color:#555}
 
-.role{
-  margin:9px 0;
-  color:#c4c4c4;
-  font-size:17px;
-  font-weight:700;
-}
+.preview-cover{height:100px;background-size:cover;background-position:center;position:relative}
+.preview-body{padding:12px;text-align:left}
+.preview-icon{width:40px;height:40px;border-radius:13px;object-fit:cover;border:1px solid #414141;margin-bottom:8px}
+.preview-name{font-size:16px;font-weight:900;margin-bottom:4px}
+.preview-members{color:#aaa;font-size:12px;font-weight:700}
 
-.desc{
-  max-width:580px;
-  margin:0 auto;
-  color:#989898;
-  font-size:14px;
-  line-height:1.6;
-}
+.controls{display:flex;align-items:center;justify-content:center;gap:8px;margin:16px 0 20px}
+.ctrl{width:38px;height:38px;border-radius:15px;background:#171717;border:1px solid rgba(255,255,255,.10);color:#ededed;cursor:pointer;font-size:17px;font-weight:900}
+.dot{width:8px;height:8px;border:0;border-radius:50%;background:#555;cursor:pointer}
+.dot.on{background:#eee}
 
-.stats{
-  max-width:760px;
-  margin:28px auto 52px;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
-}
-
-.stat{
-  background:#101010;
-  border:1px solid #292929;
-  border-radius:24px;
-  padding:18px 20px;
-  text-align:center;
-  transition:.22s ease;
-}
-
-.stat:hover{
-  transform:translateY(-5px);
-  background:#161616;
-  border-color:#414141;
-}
-
-.stat strong{
-  display:block;
-  font-size:29px;
-  font-weight:900;
-  color:#fff;
-}
-
-.stat span{
-  display:block;
-  color:#9d9d9d;
-  font-size:13px;
-  font-weight:700;
-  margin-top:4px;
-}
-
-.section{
-  margin-top:48px;
-  text-align:center;
-}
-
-.section h2{
-  font-size:32px;
-  font-weight:900;
-  letter-spacing:-.9px;
-  margin-bottom:5px;
-}
-
-.section p{
-  color:#8e8e8e;
-  font-size:13px;
-  font-weight:600;
-  margin-bottom:22px;
-}
-
-.showcase{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:18px;
-}
-
-.side-card,.main-card{
-  background:#101010;
-  border:1px solid #2d2d2d;
-  overflow:hidden;
-  transition:.22s ease;
-}
-
-.side-card{
-  width:120px;
-  height:145px;
-}
-  border-radius:26px;
-  opacity:.38;
-  filter:brightness(.72);
-}
-
-.side-card:hover{
-  opacity:.52;
-  transform:translateY(-4px);
-  border-color:#444;
-}
-
-.main-card{
-  width:280px;
-  min-height:250px;
-}
-  border-radius:30px;
-  text-align:left;
-  box-shadow:0 26px 75px rgba(0,0,0,.46);
-}
-
-.main-card:hover{
-  transform:translateY(-7px) scale(1.01);
-  border-color:#484848;
-  background:#141414;
-}
-
-.cover{
-  height:95px;
-}
-  background-size:cover;
-  background-position:center;
-  position:relative;
-}
-
-.cover::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(to bottom,rgba(0,0,0,.04),#101010);
-}
-
-.card-body{
-  padding:18px;
-}
-
-.server-icon{
-  width:40px;
-  height:40px;
-}
-  border-radius:19px;
-  object-fit:cover;
-  border:1px solid #414141;
-  margin-bottom:12px;
-}
-
-.members{
-  color:#eeeeee;
-  font-size:13px;
-  font-weight:900;
-  margin-bottom:7px;
-}
-
-.name{
-  font-size:20px;
-}
-  font-weight:900;
-  letter-spacing:-.8px;
-  margin-bottom:6px;
-}
-
-.position{
-  color:#c5c5c5;
-  font-size:14px;
-  font-weight:700;
-  margin-bottom:14px;
-}
-
-.card-bottom{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-}
-
-.status{
-  background:#1a1a1a;
-  border:1px solid #393939;
-  color:#e0e0e0;
-  border-radius:14px;
-  padding:7px 10px;
-  font-size:12px;
-  font-weight:900;
-}
-
-.join,.prev-join{
-  background:#151515;
-  border:1px solid #3b3b3b;
-  color:#eeeeee;
-  border-radius:15px;
-  padding:9px 14px;
-  font-size:12px;
-  font-weight:900;
-  transition:.22s ease;
-  white-space:nowrap;
-}
-
-.join:hover,.prev-join:hover{
-  transform:translateY(-2px);
-  background:#202020;
-  border-color:#5a5a5a;
-}
-
-.preview-cover{
-  height:115px;
-  background-size:cover;
-  background-position:center;
-  position:relative;
-}
-
-.preview-cover::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(to bottom,rgba(0,0,0,.08),#101010);
-}
-
-.preview-body{
-  padding:13px;
-  text-align:left;
-}
-
-.preview-icon{
-  width:44px;
-  height:44px;
-  border-radius:14px;
-  object-fit:cover;
-  border:1px solid #414141;
-  margin-bottom:9px;
-}
-
-.preview-name{
-  font-size:17px;
-  font-weight:900;
-  letter-spacing:-.3px;
-  margin-bottom:4px;
-}
-
-.preview-members{
-  color:#aaa;
-  font-size:12px;
-  font-weight:700;
-}
-
-.controls{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  margin:18px 0 22px;
-}
-
-.ctrl{
-  width:40px;
-  height:40px;
-  border-radius:16px;
-  background:#171717;
-  border:1px solid rgba(255,255,255,.10);
-  color:#ededed;
-  cursor:pointer;
-  font-size:17px;
-  font-weight:900;
-  transition:.22s ease;
-}
-
-.ctrl:hover{
-  transform:translateY(-2px);
-  background:#222;
-  border-color:rgba(255,255,255,.18);
-}
-
-.dot{
-  width:8px;
-  height:8px;
-  border:0;
-  border-radius:50%;
-  background:#555;
-  cursor:pointer;
-  transition:.22s ease;
-}
-
-.dot:hover{
-  transform:scale(1.25);
-  background:#aaa;
-}
-
-.dot.on{
-  background:#eeeeee;
-}
-
-.toggle{
-  background:#111;
-  border:1px solid #3b3b3b;
-  color:#eeeeee;
-  border-radius:22px;
-  padding:12px 22px;
-  font-family:inherit;
-  font-size:14px;
-  font-weight:900;
-  cursor:pointer;
-  transition:.22s ease;
-  margin-top:2px;
-}
-
-.toggle:hover{
-  transform:translateY(-3px);
-  background:#1a1a1a;
-  border-color:#555;
-}
+.toggle{background:#111;border:1px solid #3b3b3b;color:#eee;border-radius:20px;padding:11px 20px;font-size:14px;font-weight:900;cursor:pointer}
 
 .previous-grid{
   display:none;
-  grid-template-columns:repeat(3,1fr);
+  flex-wrap:wrap;
+  justify-content:center;
   gap:14px;
   margin-top:28px;
 }
 
 .previous-grid.show{
-  display:grid;
+  display:flex;
 }
 
 .prev-card{
+  width:calc(33.333% - 14px);
+  min-width:300px;
+  max-width:350px;
   background:#101010;
   border:1px solid #2d2d2d;
   border-radius:24px;
@@ -415,101 +92,26 @@ h1{
   align-items:center;
   gap:13px;
   text-align:left;
-  transition:.22s ease;
 }
 
-.prev-card:hover{
-  transform:translateY(-4px);
-  background:#161616;
-  border-color:#444;
-}
-
-.prev-icon{
-  width:58px;
-  height:58px;
-  border-radius:18px;
-  border:1px solid #414141;
-  overflow:hidden;
-  background:#191919;
-  flex-shrink:0;
-}
-
-.prev-icon img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
-
-.prev-info{
-  min-width:0;
-}
-
-.prev-name{
-  font-size:17px;
-  font-weight:900;
-  letter-spacing:-.3px;
-  margin-bottom:3px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.prev-role{
-  color:#aaa;
-  font-size:13px;
-  font-weight:700;
-}
-
-.prev-status{
-  display:inline-block;
-  margin-top:8px;
-  background:#1a1a1a;
-  border:1px solid #393939;
-  color:#e0e0e0;
-  border-radius:13px;
-  padding:6px 9px;
-  font-size:11px;
-  font-weight:900;
-}
+.prev-icon{width:58px;height:58px;border-radius:18px;border:1px solid #414141;overflow:hidden;background:#191919;flex-shrink:0}
+.prev-icon img{width:100%;height:100%;object-fit:cover;display:block}
+.prev-name{font-size:17px;font-weight:900;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prev-role{color:#aaa;font-size:13px;font-weight:700}
+.prev-status{display:inline-block;margin-top:8px;font-size:11px}
 
 @media(max-width:900px){
-  .previous-grid{
-    grid-template-columns:1fr 1fr;
-  }
+  .prev-card{width:calc(50% - 14px);min-width:280px}
 }
 
 @media(max-width:760px){
   h1{font-size:40px}
-
-  .stats{
-    grid-template-columns:1fr;
-  }
-
-  .showcase{
-    display:block;
-  }
-
-  .side-card{
-    display:none;
-  }
-
-  .main-card{
-    width:100%;
-  }
-
-  .previous-grid{
-    grid-template-columns:1fr;
-  }
-
-  .prev-card{
-    grid-template-columns:auto 1fr;
-  }
-
-  .prev-join{
-    grid-column:1 / -1;
-    text-align:center;
-  }
+  .stats{grid-template-columns:1fr}
+  .showcase{display:block}
+  .side-card{display:none}
+  .main-card{width:100%}
+  .prev-card{width:100%;max-width:none;grid-template-columns:auto 1fr}
+  .prev-join{grid-column:1/-1;text-align:center}
 }
 </style>
 </head>
@@ -526,33 +128,18 @@ h1{
   <img class="avatar" src="https://i.pinimg.com/736x/93/c6/6e/93c66e735b6c02afb07c3ba23480dfd7.jpg" alt="oSein">
   <h1>oSein</h1>
   <div class="role" data-en="Discord Staff" data-pt="Staff do Discord">Discord Staff</div>
-  <p class="desc" data-en="Experienced Discord staff member focused on moderation, community management, and community support." data-pt="Membro experiente da staff do Discord, focado em moderação, gerenciamento de comunidade e suporte.">
-    Experienced Discord staff member focused on moderation, community management, and community support.
-  </p>
+  <p class="desc" data-en="Experienced Discord staff member focused on moderation, community management, and community support." data-pt="Membro experiente da staff do Discord, focado em moderação, gerenciamento de comunidade e suporte.">Experienced Discord staff member focused on moderation, community management, and community support.</p>
 </section>
 
 <section class="stats">
-  <div class="stat">
-    <strong>210K+</strong>
-    <span data-en="Contributed Members" data-pt="Membros Contribuídos">Contributed Members</span>
-  </div>
-
-  <div class="stat">
-    <strong>10+</strong>
-    <span data-en="Projects" data-pt="Projetos">Projects</span>
-  </div>
-
-  <div class="stat">
-    <strong>1</strong>
-    <span data-en="Year Experience" data-pt="Ano de Experiência">Year Experience</span>
-  </div>
+  <div class="stat"><strong>240K+</strong><span data-en="Contributed Members" data-pt="Membros Contribuídos">Contributed Members</span></div>
+  <div class="stat"><strong>10+</strong><span data-en="Projects" data-pt="Projetos">Projects</span></div>
+  <div class="stat"><strong>1</strong><span data-en="Year Experience" data-pt="Ano de Experiência">Year Experience</span></div>
 </section>
 
 <section class="section">
   <h2 data-en="Featured Projects" data-pt="Projetos em Destaque">Featured Projects</h2>
-  <p data-en="My main active moderation experiences." data-pt="Minhas principais experiências ativas de moderação.">
-    My main active moderation experiences.
-  </p>
+  <p data-en="My main active moderation experiences." data-pt="Minhas principais experiências ativas de moderação.">My main active moderation experiences.</p>
 
   <div class="showcase">
     <div class="side-card" id="leftCard"></div>
@@ -567,62 +154,32 @@ h1{
   <div class="previous-grid" id="previousGrid">
 
     <div class="prev-card">
-      <div class="prev-icon">
-        <img src="https://cdn.discordapp.com/attachments/1253521147962593320/1515551360056037437/image.png?ex=6a3407f1&is=6a32b671&hm=c3d16a1af804c5a084aea51a32bb18fd22f82c3e9c0ab9006236819620390357&" alt="Anime Paradise">
-      </div>
-      <div class="prev-info">
-        <div class="prev-name">Anime Paradise</div>
-        <div class="prev-role">Moderator</div>
-        <span class="prev-status" data-en="Active" data-pt="Ativo">Active</span>
-      </div>
+      <div class="prev-icon"><img src="https://cdn.discordapp.com/attachments/1253521147962593320/1515551360056037437/image.png?ex=6a3407f1&is=6a32b671&hm=c3d16a1af804c5a084aea51a32bb18fd22f82c3e9c0ab9006236819620390357&" alt="Anime Paradise"></div>
+      <div><div class="prev-name">Anime Paradise</div><div class="prev-role">Moderator</div><span class="prev-status" data-en="Active" data-pt="Ativo">Active</span></div>
       <a class="prev-join" href="https://discord.gg/P8J8DzcvK3" target="_blank" data-en="Join" data-pt="Entrar">Join</a>
     </div>
 
     <div class="prev-card">
-      <div class="prev-icon">
-        <img src="https://cdn.discordapp.com/icons/1494472346319458375/b3e398934d7676500cd995020632f171.png?size=2048" alt="Anime Stars">
-      </div>
-      <div class="prev-info">
-        <div class="prev-name">Anime Stars</div>
-        <div class="prev-role">Moderator</div>
-        <span class="prev-status" data-en="Active" data-pt="Ativo">Active</span>
-      </div>
+      <div class="prev-icon"><img src="https://cdn.discordapp.com/icons/1494472346319458375/b3e398934d7676500cd995020632f171.png?size=2048" alt="Anime Stars"></div>
+      <div><div class="prev-name">Anime Stars</div><div class="prev-role">Moderator</div><span class="prev-status" data-en="Active" data-pt="Ativo">Active</span></div>
       <a class="prev-join" href="https://discord.gg/8pGjas3uSm" target="_blank" data-en="Join" data-pt="Entrar">Join</a>
     </div>
 
     <div class="prev-card">
-      <div class="prev-icon">
-        <img src="https://cdn.discordapp.com/attachments/1253521147962593320/1516967876932796426/image.png?ex=6a3491ed&is=6a33406d&hm=693fb22c3fa1e076b66147a12eb39e8923e8fc2ad5dc76d58708a306329b2f63&" alt="Anime Travellers">
-      </div>
-      <div class="prev-info">
-        <div class="prev-name">Anime Travellers</div>
-        <div class="prev-role">Trial Moderator</div>
-        <span class="prev-status" data-en="Active" data-pt="Ativo">Active</span>
-      </div>
+      <div class="prev-icon"><img src="https://cdn.discordapp.com/attachments/1253521147962593320/1516967876932796426/image.png?ex=6a3491ed&is=6a33406d&hm=693fb22c3fa1e076b66147a12eb39e8923e8fc2ad5dc76d58708a306329b2f63&" alt="Anime Travellers"></div>
+      <div><div class="prev-name">Anime Travellers</div><div class="prev-role">Trial Moderator</div><span class="prev-status" data-en="Active" data-pt="Ativo">Active</span></div>
       <a class="prev-join" href="https://discord.gg/8sVAeUmBs" target="_blank" data-en="Join" data-pt="Entrar">Join</a>
     </div>
 
     <div class="prev-card">
-      <div class="prev-icon">
-        <img src="https://cdn.discordapp.com/attachments/1253521147962593320/1516968021435092993/image.png?ex=6a349210&is=6a334090&hm=c65ec7450774a00af1870333c4ef78559da977397215cc03d9ae46c8cc67e089&" alt="Anime Crash">
-      </div>
-      <div class="prev-info">
-        <div class="prev-name">Anime Crash</div>
-        <div class="prev-role">Moderator</div>
-        <span class="prev-status" data-en="Former Staff" data-pt="Staff Antiga">Former Staff</span>
-      </div>
+      <div class="prev-icon"><img src="https://cdn.discordapp.com/attachments/1253521147962593320/1516968021435092993/image.png?ex=6a349210&is=6a334090&hm=c65ec7450774a00af1870333c4ef78559da977397215cc03d9ae46c8cc67e089&" alt="Anime Crash"></div>
+      <div><div class="prev-name">Anime Crash</div><div class="prev-role">Moderator</div><span class="prev-status" data-en="Former Staff" data-pt="Staff Antiga">Former Staff</span></div>
       <a class="prev-join" href="https://discord.gg/BABun7fZpF" target="_blank" data-en="Join" data-pt="Entrar">Join</a>
     </div>
 
     <div class="prev-card">
-      <div class="prev-icon">
-        <img src="https://cdn.discordapp.com/attachments/1253521147962593320/1516967748465328260/image.png?ex=6a3491cf&is=6a33404f&hm=d066e5b6ca2815613b5ff1ebe6dcfebbd8afb42641af8cd6308642007ece708c&" alt="Anime Overdrive">
-      </div>
-      <div class="prev-info">
-        <div class="prev-name">Anime Overdrive</div>
-        <div class="prev-role">Moderator</div>
-        <span class="prev-status" data-en="Former Staff" data-pt="Staff Antiga">Former Staff</span>
-      </div>
+      <div class="prev-icon"><img src="https://cdn.discordapp.com/attachments/1253521147962593320/1516967748465328260/image.png?ex=6a3491cf&is=6a33404f&hm=d066e5b6ca2815613b5ff1ebe6dcfebbd8afb42641af8cd6308642007ece708c&" alt="Anime Overdrive"></div>
+      <div><div class="prev-name">Anime Overdrive</div><div class="prev-role">Moderator</div><span class="prev-status" data-en="Former Staff" data-pt="Staff Antiga">Former Staff</span></div>
       <a class="prev-join" href="https://discord.gg/NbWwvWm5z7" target="_blank" data-en="Join" data-pt="Entrar">Join</a>
     </div>
 
@@ -664,8 +221,7 @@ let lang=localStorage.getItem("lang")||"en";
 let previousOpen=false;
 
 function statusText(status){
-  if(status==="active") return lang==="en" ? "Active" : "Ativo";
-  return lang==="en" ? "Former Staff" : "Staff Antiga";
+  return status==="active" ? (lang==="en"?"Active":"Ativo") : (lang==="en"?"Former Staff":"Staff Antiga");
 }
 
 function mainCard(s){
@@ -678,7 +234,7 @@ function mainCard(s){
       <div class="position">${s.role}</div>
       <div class="card-bottom">
         <span class="status">${statusText(s.status)}</span>
-        <a class="join" href="${s.link}" target="_blank">${lang==="en" ? "Join Server" : "Entrar"}</a>
+        <a class="join" href="${s.link}" target="_blank">${lang==="en"?"Join Server":"Entrar"}</a>
       </div>
     </div>
   `;
@@ -703,9 +259,9 @@ function render(){
   document.getElementById("leftCard").innerHTML=previewCard(featuredProjects[left]);
   document.getElementById("rightCard").innerHTML=previewCard(featuredProjects[right]);
 
-  document.getElementById("controls").innerHTML =
-    `<button class="ctrl" onclick="move(-1)">‹</button>` +
-    featuredProjects.map((_,i)=>`<button class="dot ${i===current?'on':''}" onclick="setProject(${i})"></button>`).join("") +
+  document.getElementById("controls").innerHTML=
+    `<button class="ctrl" onclick="move(-1)">‹</button>`+
+    featuredProjects.map((_,i)=>`<button class="dot ${i===current?'on':''}" onclick="setProject(${i})"></button>`).join("")+
     `<button class="ctrl" onclick="move(1)">›</button>`;
 }
 
@@ -725,22 +281,22 @@ function togglePrevious(){
 
   const btn=document.getElementById("toggleBtn");
   btn.textContent=previousOpen
-    ? (lang==="en" ? "Hide Other Projects" : "Ocultar Outros Projetos")
-    : (lang==="en" ? "View Other Projects" : "Ver Outros Projetos");
+    ? (lang==="en"?"Hide Other Projects":"Ocultar Outros Projetos")
+    : (lang==="en"?"View Other Projects":"Ver Outros Projetos");
 }
 
 function toggleLang(){
-  lang=lang==="en" ? "pt" : "en";
+  lang=lang==="en"?"pt":"en";
   localStorage.setItem("lang",lang);
 
   document.querySelectorAll("[data-en]").forEach(el=>{
     el.textContent=el.dataset[lang];
   });
 
-  document.querySelector(".lang").textContent = lang==="en" ? "ENG" : "PT";
+  document.querySelector(".lang").textContent=lang==="en"?"ENG":"PT";
 
   if(previousOpen){
-    document.getElementById("toggleBtn").textContent=lang==="en" ? "Hide Other Projects" : "Ocultar Outros Projetos";
+    document.getElementById("toggleBtn").textContent=lang==="en"?"Hide Other Projects":"Ocultar Outros Projetos";
   }
 
   render();
@@ -750,7 +306,7 @@ document.querySelectorAll("[data-en]").forEach(el=>{
   el.textContent=el.dataset[lang];
 });
 
-document.querySelector(".lang").textContent = lang==="en" ? "ENG" : "PT";
+document.querySelector(".lang").textContent=lang==="en"?"ENG":"PT";
 
 render();
 </script>
