@@ -436,10 +436,6 @@ h1{
   display:block;
 }
 
-.prev-icon img[src=""]{
-  display:none;
-}
-
 .prev-info{
   min-width:0;
 }
@@ -567,7 +563,7 @@ h1{
 
     <div class="prev-card">
       <div class="prev-icon">
-        <img src="https://cdn.discordapp.com/attachments/1253521147962593320/1515551360056037437/image.png?ex=6a2f6ab1&is=6a2e1931&hm=1affecc9e272863b1dbe7dd116cb6ba4275a62e3647dd569bffbdc318ac5d3d8&" alt="Anime Paradise" onerror="this.style.display='none'">
+        <img src="https://cdn.discordapp.com/attachments/1253521147962593320/1515551360056037437/image.png?ex=6a3407f1&is=6a32b671&hm=c3d16a1af804c5a084aea51a32bb18fd22f82c3e9c0ab9006236819620390357&" alt="Anime Paradise">
       </div>
       <div class="prev-info">
         <div class="prev-name">Anime Paradise</div>
@@ -579,7 +575,7 @@ h1{
 
     <div class="prev-card">
       <div class="prev-icon">
-        <img src="https://cdn.discordapp.com/icons/1494472346319458375/b3e398934d7676500cd995020632f171.png?size=2048" alt="Anime Stars" onerror="this.style.display='none'">
+        <img src="https://cdn.discordapp.com/icons/1494472346319458375/b3e398934d7676500cd995020632f171.png?size=2048" alt="Anime Stars">
       </div>
       <div class="prev-info">
         <div class="prev-name">Anime Stars</div>
@@ -591,7 +587,7 @@ h1{
 
     <div class="prev-card">
       <div class="prev-icon">
-        <img src="https://cdn.discordapp.com/attachments/1470536029990551775/1515553100965089371/image.png?ex=6a2f6c50&is=6a2e1ad0&hm=0d3fbba5d50151b3aee73ab87f9f3cdf182cf50186043f0001b90e4a8a1106d5&" alt="Anime Travellers" onerror="this.style.display='none'">
+        <img src="https://cdn.discordapp.com/attachments/1253521147962593320/1516967876932796426/image.png?ex=6a3491ed&is=6a33406d&hm=693fb22c3fa1e076b66147a12eb39e8923e8fc2ad5dc76d58708a306329b2f63&" alt="Anime Travellers">
       </div>
       <div class="prev-info">
         <div class="prev-name">Anime Travellers</div>
@@ -603,7 +599,7 @@ h1{
 
     <div class="prev-card">
       <div class="prev-icon">
-        <img src="https://cdn.discordapp.com/attachments/1470536029990551775/1515551723194683483/image.png?ex=6a2f6b08&is=6a2e1988&hm=5708bbdcd384beff318fdaf3462be962aaf9c237eac80f0d6611c6bf7b30f77f&" alt="Anime Crash" onerror="this.style.display='none'">
+        <img src="https://cdn.discordapp.com/attachments/1253521147962593320/1516968021435092993/image.png?ex=6a349210&is=6a334090&hm=c65ec7450774a00af1870333c4ef78559da977397215cc03d9ae46c8cc67e089&" alt="Anime Crash">
       </div>
       <div class="prev-info">
         <div class="prev-name">Anime Crash</div>
@@ -615,7 +611,7 @@ h1{
 
     <div class="prev-card">
       <div class="prev-icon">
-        <img src="https://cdn.discordapp.com/attachments/1470536029990551775/1515552267296837724/image.png?ex=6a2f6b8a&is=6a2e1a0a&hm=73fd9d2113314fada34bf90be4a352658084bcce4c4dd290a24d8fb2417d9880&" alt="Anime Overdrive" onerror="this.style.display='none'">
+        <img src="https://cdn.discordapp.com/attachments/1253521147962593320/1516967748465328260/image.png?ex=6a3491cf&is=6a33404f&hm=d066e5b6ca2815613b5ff1ebe6dcfebbd8afb42641af8cd6308642007ece708c&" alt="Anime Overdrive">
       </div>
       <div class="prev-info">
         <div class="prev-name">Anime Overdrive</div>
@@ -671,7 +667,7 @@ function mainCard(s){
   return `
     <div class="cover" style="background-image:url('${s.icon}')"></div>
     <div class="card-body">
-      <img class="server-icon" src="${s.icon}" alt="${s.name}" onerror="this.style.display='none'">
+      <img class="server-icon" src="${s.icon}" alt="${s.name}">
       <div class="members">${s.members}</div>
       <div class="name">${s.name}</div>
       <div class="position">${s.role}</div>
@@ -687,7 +683,7 @@ function previewCard(s){
   return `
     <div class="preview-cover" style="background-image:url('${s.icon}')"></div>
     <div class="preview-body">
-      <img class="preview-icon" src="${s.icon}" alt="${s.name}" onerror="this.style.display='none'">
+      <img class="preview-icon" src="${s.icon}" alt="${s.name}">
       <div class="preview-name">${s.name}</div>
       <div class="preview-members">${s.members}</div>
     </div>
